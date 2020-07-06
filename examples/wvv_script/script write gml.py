@@ -8,7 +8,7 @@ import sys
 import os
 
 # Relative path to root folder of script
-# sys.path.append(r"../../")
+sys.path.append(r"../../")
 from tohydamogml.hydamo_table import HydamoObject
 
 # path to json files

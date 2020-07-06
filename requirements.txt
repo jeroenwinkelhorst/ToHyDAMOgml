@@ -1,6 +1,0 @@
-fiona
-shapely
-pyproj
-rtree
-lxml
-geopandas
