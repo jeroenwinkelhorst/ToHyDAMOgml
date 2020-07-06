@@ -17,12 +17,10 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install deps
-        run: python -m pip install wheel
+        run: python -m pip install wheel twine
 
       - name: Build bdist_wheel
-        run: python setup.py bdist_wheel
-
-      - uses: actions/upload-artifact@v2
-        with:
-          path: dist/*.tar.gz
+        run: |
+          python setup.py bdist_wheel
+          twine upload dist/*
 
