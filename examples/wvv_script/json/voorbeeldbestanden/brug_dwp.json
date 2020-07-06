@@ -1,0 +1,150 @@
+{
+    "object": "normgeparametriseerdprofiel",
+    "source": {
+        "path": "c:\\Box Sync\\BG6255 D HYDRO TKI2 WIP\\06_Pilot Modelbouw\\01_test workflow\\00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
+        "layer": "Brug",
+        "filter": {
+            "STATUSOBJECT": [
+                3
+            ]
+        },
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": false,
+        "func": "brug_profile_geometry"
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": true,
+            "src_col": "NAAM",
+            "func": "",
+            "default": "geen"
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "STATUSOBJECT",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "20"
+        },
+        {
+            "name": "bodemhoogtebenedenstrooms",
+            "type": "Double",
+            "required": true,
+            "src_col": "WS_BODEMHOOGTE_BES",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "bodemhoogtebovenstrooms",
+            "type": "Double",
+            "required": true,
+            "src_col": "WS_BODEMHOOGTE_BOS",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "bodembreedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "WS_BREEDTEBRUG",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "taludhellinglinkerzijde",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 0
+        },
+        {
+            "name": "taludhellingrechterzijde",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 0
+        },
+        {
+            "name": "hoogteinsteeklinkerzijde",
+            "type": "Double",
+            "required": true,
+            "src_col": "WS_HOOGTEONDERZIJDE_BOS",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogteinsteekrechterzijde",
+            "type": "Double",
+            "required": false,
+            "src_col": "WS_HOOGTEONDERZIJDE_BOS",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "ruwheidstypecode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 4
+        },
+        {
+            "name": "ruwheidswaarde",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "obj_soortmateriaal",
+            "default": 999
+        }
+    ]
+}

@@ -1,0 +1,104 @@
+{
+  "object": "meetlocatie",
+  "source": {
+    "path": "00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
+    "layer": "Meetlocatie",
+    "filter": {"STATUSOBJECT": [3]},
+    "filter_type": "include",
+    "query":""
+  },
+  "geometry": {
+      "drop": false,
+      "func": ""
+  },
+  "related_data": {
+    "path": "",
+    "layer": "",
+    "mapping_col_src": "",
+    "mapping_col_rel": ""
+  },
+  "index": {
+      "name": "code",
+      "src_col": "CODE"
+    },
+  "attributes": [
+    { "name": "naam",
+      "type": "String",
+      "required": false,
+      "src_col": "NAAM",
+      "func": "",
+      "default": ""
+    },
+    { "name": "statusobjectcode",
+      "type": "Integer",
+      "required": false,
+      "src_col": "STATUSOBJECT",
+      "func": "",
+      "default": ""
+    },
+    { "name": "objectbegintijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTBEGINTIJD",
+      "func": "",
+      "default": ""
+    },
+    { "name": "objecteindtijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTEINDTIJD",
+      "func": "",
+      "default": ""
+    },
+    { "name": "hyperlink",
+      "type": "String",
+      "required": false,
+      "src_col": "HYPERLINK",
+      "func": "",
+      "default": ""
+    },
+    { "name": "administratiefgebied",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "20"
+    },
+    { "name": "metingwaterstandcode",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 999
+    },
+    { "name": "metingklepofschuifstandcode",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 999
+    },
+    { "name": "metingafvoercode",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 999
+    },
+    { "name": "metingstroomsnelheidcode",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 999
+    },
+    { "name": "metingwaterkwaliteitcode",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 999
+    }
+
+  ]
+}

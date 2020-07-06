@@ -1,0 +1,102 @@
+{
+    "object": "hydroobject",
+    "source": {
+        "path": "gdb\\Breg_Hydamo.gdb",
+        "layer": "HydroObject",
+        "filter": {
+            "STATUSOBJECT": [
+                3
+            ]
+        },
+        "filter_type": "include",
+        "query": "CATEGORIEOPPWATERLICHAAM == 1 or CATEGORIEOPPWATERLICHAAM == 2"
+    },
+    "geometry": {
+        "drop": false,
+        "func": ""
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": false,
+            "src_col": "NAAM",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "STATUSOBJECT",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "20"
+        },
+        {
+            "name": "ruwheidstypecode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "1"
+        },
+        {
+            "name": "ruwheidswaardelaag",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "30.0"
+        },
+        {
+            "name": "ruwheidswaardehoog",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "20.0"
+        }
+    ]
+}

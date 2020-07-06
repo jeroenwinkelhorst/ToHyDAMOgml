@@ -1,0 +1,21 @@
+name: modelworkflow
+channels:
+  - conda-forge
+dependencies:
+    - python=3.7.6
+    - gdal=2.4.1
+    - geopandas
+    - jupyter
+    - ipython
+    - matplotlib
+    - fiona
+    - netcdf4
+    - tqdm
+    - scipy
+    - pillow
+    - lxml
+    - fire
+    - rasterio
+    - rasterstats
+    - imod
+

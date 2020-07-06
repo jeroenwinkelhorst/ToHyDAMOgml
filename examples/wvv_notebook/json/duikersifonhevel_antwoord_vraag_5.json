@@ -1,0 +1,182 @@
+{
+    "object": "duikersifonhevel",
+    "source": {
+        "path": "gdb\\Breg_Hydamo.gdb",
+        "layer": "DuikerSifonHevel",
+        "filter": {
+            "STATUSOBJECT": [
+                5,7
+            ]
+        },
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": false,
+        "func": ""
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": false,
+            "src_col": "NAAM",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "STATUSOBJECT",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "20"
+        },
+        {
+            "name": "indpeilregulpeilscheidendcode",
+            "type": "String",
+            "required": false,
+            "src_col": "INDPEILREGULPEILSCHEIDEND",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "lengte",
+            "type": "Double",
+            "required": true,
+            "src_col": "LENGTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogteopening",
+            "type": "Double",
+            "required": true,
+            "src_col": "HOOGTEOPENING",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "breedteopening",
+            "type": "Double",
+            "required": true,
+            "src_col": "BREEDTEOPENING",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogtebinnenonderkantbenedenstrooms",
+            "type": "Double",
+            "required": true,
+            "src_col": "HOOGTEBINNENONDERKANTBENE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogtebinnenonderkantbovenstrooms",
+            "type": "Double",
+            "required": true,
+            "src_col": "HOOGTEBINNENONDERKANTBOV",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "vormcode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "VORMKOKER",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "soortkokervormigeconstructiecode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "",
+            "func": "duikerhevelsifon_soortkokervormigeconstructiecode",
+            "default": 999
+        },
+        {
+            "name": "ruwheidstypecode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 4
+        },
+        {
+            "name": "ruwheidswaarde",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "obj_soortmateriaal",
+            "default": 999
+        },
+        {
+            "name": "intreeverlies",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "uittreeverlies",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "aantalknikken",
+            "type": "Integer",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        }
+    ]
+}
