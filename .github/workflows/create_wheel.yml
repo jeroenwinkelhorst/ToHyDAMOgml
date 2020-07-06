@@ -10,12 +10,10 @@ jobs:
       matrix:
         python-version: [3.7]
 
-      steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Setup Python # Set Python version
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: upload artifacts
-        uses: actions/upload-artifact@v1
 
