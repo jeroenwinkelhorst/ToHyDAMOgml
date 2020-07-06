@@ -32,7 +32,7 @@ jobs:
       with:
         auto-update-conda: true
         auto-activate-base: false
-        activate-environment: jupytext-ci
+        activate-environment: modelworkflow
         python-version: 3.7
         channels: defaults,conda-forge
         environment-file: environment.yml
@@ -41,6 +41,5 @@ jobs:
     # Runs a set of commands using the runners shell
     - name: Run a multi-line script
       run: |
-        conda env create -f environment.yml
         source activate modelworkflow
         python setup.py bdist_wheel
