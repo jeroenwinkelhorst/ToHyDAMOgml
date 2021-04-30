@@ -128,3 +128,10 @@ ENV/
 /examples/wvv_notebook/output
 /examples/wvv_script/log
 /examples/wvv_script/output
+
+# exception
+!/examples/wvv_notebook/shp/OW.cpg
+!/examples/wvv_notebook/shp/OW.dbf
+!/examples/wvv_notebook/shp/OW.prj
+!/examples/wvv_notebook/shp/OW.shp
+!/examples/wvv_notebook/shp/OW.shx
