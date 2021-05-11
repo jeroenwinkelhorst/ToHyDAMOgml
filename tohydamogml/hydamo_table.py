@@ -321,4 +321,5 @@ class HydamoObject:
 
 
 if __name__ == '__main__':
-    pass
+    gdb = r'd:\Box Sync\BH3371 NBW Oosterw\BH3371 NBW Oosterw WIP\04_opzet_model\benodigde gegevens\00_brondata\gdb\export_watergangen_20200617\topologie_verbeterd.gdb\'
+    hd = HydamoObject()
