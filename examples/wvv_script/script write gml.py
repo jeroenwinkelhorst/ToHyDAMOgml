@@ -16,8 +16,7 @@ from tohydamogml.hydamo_table import HydamoObject
 path_json = r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\02_Tools\config\json_WBD'
 
 # Optional: filepath to a python file with attributes functions. In the json files is referred to these functions.
-# attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
-attr_function = None
+attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
 
 # path to export gml files
 export_path = os.path.join("output")

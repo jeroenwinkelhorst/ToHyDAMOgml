@@ -41,3 +41,27 @@ MATERIAALKUNSTWERK = {
     30: "klei",
     31: "lokale bodemsoort"
 }
+
+TYPESTUW = {
+    1: "schotbalkstuw",
+    2: "stuw met schuif",
+    3: "stuw met klep",
+    4: "segmentstuw",
+    5: "cascadestuw",
+    6: "hevelstuw",
+    7: "meetstuw",
+    8: "meetschot",
+    9: "stuw met contra-gewicht",
+    10: "inlaat- en/of aflaatstuw",
+    11: "overlaat",
+    12: "drijverstuw",
+    13: "trommelstuw",
+    20: "gronddamstuw",
+    21: "stuwbak",
+    22: "tuimel- of kantelstuw",
+    23: "balgstuw",
+    24: "brievenbusstuw",
+    25: "knijpstuw",
+    26: "conserveringstuw",
+    99: "onbekend"
+}

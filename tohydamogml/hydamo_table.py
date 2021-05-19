@@ -305,9 +305,11 @@ class HydamoObject:
         """
         if func is not None:
             tmp_attr = pd.DataFrame(data={attr: func(damo_gdf=src_gdf, obj=self.obj)})
-        else:
+        elif self.attr_damo[attr] in src_gdf.columns:
             tmp_attr = pd.DataFrame(src_gdf[self.attr_damo[attr]])
             tmp_attr.rename(columns={self.attr_damo[attr]: attr}, inplace=True)
+        else:
+            tmp_attr = pd.DataFrame(data=None, index=src_gdf.index, columns=[attr])
 
         tmp_attr = self._fill_na_if_required(attr, tmp_attr)
         tmp_attr = self._set_datatype(attr, tmp_attr)
