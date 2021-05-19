@@ -71,11 +71,25 @@ class HydamoObject:
         Create gdf for hydroobject
         """
         # Load Data
-        gdf_src = self._create_gdf_from_gdb()
-
-        gdf_src = self._create_gdf_from_gdb(obj["source"]["layer"], obj["source"]["path"], obj["index"]['name'],
-                                            filter_dict=obj["source"]["filter"], filter_type=obj["source"]["filter_type"],
-                                            index_col_src=obj["index"]["src_col"], mask=mask, query=obj["source"]["query"])
+        if obj['source'].get('type') == 'FeatureServer':
+            gdf_src = self._create_gdf_from_featureserver(url=obj['source']['path'],
+                                                          layer=obj['source']['layer'],
+                                                          index_name=obj["index"]['name'],
+                                                          filter_dict=obj["source"]["filter"],
+                                                          filter_type=obj["source"]["filter_type"],
+                                                          index_col_src=obj["index"]["src_col"],
+                                                          mask=mask,
+                                                          query=obj["source"]["query"]
+                                                          )
+        else:
+            gdf_src = self._create_gdf_from_gdb(layer=obj["source"]["layer"],
+                                                filegdb=obj["source"]["path"],
+                                                index_name=obj["index"]['name'],
+                                                filter_dict=obj["source"]["filter"],
+                                                filter_type=obj["source"]["filter_type"],
+                                                index_col_src=obj["index"]["src_col"],
+                                                mask=mask,
+                                                query=obj["source"]["query"])
 
         # join related table
         if obj['related_data']["path"]:
@@ -190,15 +204,14 @@ class HydamoObject:
 
         return gdf
 
-    def _create_gdf_from_featureserver(self, url: str, layer_name: str, layer_index: int, filter_dict: dict = None,
+    def _create_gdf_from_featureserver(self, url: str, layer: str, index_name: str, filter_dict: dict = None,
                                 filter_type: str = None, index_col_src: str = None, mask=None, query=None):
         """
         Create geodataframe from arcgis featureserver. Optionally filter rows
 
         :param url: path to the url of the featureserver. Typically looks like:
                     "https://maps.XX.com/arcgis/rest/services/XX/XX/FeatureServer"
-        :param layer_name: name of the layer
-        :param layer_index: index of the layer within the Feature Server
+        :param layer: name/index of the layer within the Feature Server
         :param filter_dict: dict, {"column_name": [values] }
         :param filter_type: str, include or exclude
         :param index_col_src: column name of the index
@@ -206,7 +219,7 @@ class HydamoObject:
         :return: geodataframe
         """
 
-        gdf = read_featureserver(url, layer_index)
+        gdf = read_featureserver(url, layer)
 
         if mask and (gdf.geometry[0] is not None):
             gdf = gdf[gdf.intersects(mask)]

@@ -12,10 +12,12 @@ sys.path.append(r"../../")
 from tohydamogml.hydamo_table import HydamoObject
 
 # path to json files
-path_json = os.path.join("json")
+# path_json = os.path.join("json")
+path_json = r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\02_Tools\config\json_WBD'
 
 # Optional: filepath to a python file with attributes functions. In the json files is referred to these functions.
-attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
+# attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
+attr_function = None
 
 # path to export gml files
 export_path = os.path.join("output")
@@ -25,8 +27,8 @@ export_path = os.path.join("output")
 
 # list with json objects to loop through
 json_objects = [
-    os.path.join(path_json, "hydroobject.json"),
-    # os.path.join(path_json, "stuw.json"),
+    # os.path.join(path_json, "hydroobject.json"),
+    os.path.join(path_json, "stuw.json"),
     # os.path.join(path_json, "duikersifonhevel.json"),
     # os.path.join(path_json, "afsluitmiddel.json"),
     # os.path.join(path_json, "brug.json"),

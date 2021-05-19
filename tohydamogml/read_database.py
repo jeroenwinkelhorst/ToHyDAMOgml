@@ -8,11 +8,12 @@ import geopandas as gpd
 import pandas as pd
 from tohydamogml.config import COLNAME_OID
 
+
 def read_featureserver(url, layer_index):
     """Read featureservice with fiona to get original objectid. Return geopandas dataframe or pandas dataframe"""
     collection = FeatureLayerCollection(url)
     wkid = collection.properties['spatialReference']['wkid']
-    featureset = collection.layers[layer_index]
+    featureset = collection.layers[int(layer_index)]
     if featureset.properties.geometryField is not None:
         query_all = featureset.query(where=f'{COLNAME_OID}>=0')
         geojson = query_all.to_geojson
