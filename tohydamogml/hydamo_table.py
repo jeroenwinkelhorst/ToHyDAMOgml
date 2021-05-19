@@ -16,7 +16,7 @@ import geopandas as gpd
 import pandas as pd
 from shapely import ops
 from tohydamogml.gml import Gml
-from tohydamogml.read_filegdb import read_filegdb
+from tohydamogml.read_database import read_filegdb, read_featureserver
 
 
 
@@ -71,9 +71,11 @@ class HydamoObject:
         Create gdf for hydroobject
         """
         # Load Data
-        gdf_src = self._create_gdf(obj["source"]["layer"], obj["source"]["path"], obj["index"]['name'],
-                                   filter_dict=obj["source"]["filter"], filter_type=obj["source"]["filter_type"],
-                                   index_col_src=obj["index"]["src_col"], mask=mask, query=obj["source"]["query"])
+        gdf_src = self._create_gdf_from_gdb()
+
+        gdf_src = self._create_gdf_from_gdb(obj["source"]["layer"], obj["source"]["path"], obj["index"]['name'],
+                                            filter_dict=obj["source"]["filter"], filter_type=obj["source"]["filter_type"],
+                                            index_col_src=obj["index"]["src_col"], mask=mask, query=obj["source"]["query"])
 
         # join related table
         if obj['related_data']["path"]:
@@ -155,8 +157,8 @@ class HydamoObject:
         """
         return self.gml.validate(write_error_log)
 
-    def _create_gdf(self, layer: str, filegdb: str, index_name: str, filter_dict: dict = None, filter_type: str = None,
-                    index_col_src: str = None, mask=None, query=None):
+    def _create_gdf_from_gdb(self, layer: str, filegdb: str, index_name: str, filter_dict: dict = None,
+                             filter_type: str = None, index_col_src: str = None, mask=None, query=None):
         """
         Create geodataframe from database. Optionally filter rows
 
@@ -171,6 +173,40 @@ class HydamoObject:
         """
 
         gdf = read_filegdb(filegdb, layer)
+
+        if mask and (gdf.geometry[0] is not None):
+            gdf = gdf[gdf.intersects(mask)]
+        if filter_dict:
+            gdf = self._filter_gdf(gdf, filter_dict, filter_type)
+        if query:
+            gdf = gdf.query(query, engine="python")
+
+        gdf.reset_index(inplace=True)
+        gdf.set_index(index_col_src, inplace=True, drop=False)
+        gdf.index.names = [index_name]
+
+        # remove objects without a unique code
+        gdf = gdf[gdf.index.notnull()]
+
+        return gdf
+
+    def _create_gdf_from_featureserver(self, url: str, layer_name: str, layer_index: int, filter_dict: dict = None,
+                                filter_type: str = None, index_col_src: str = None, mask=None, query=None):
+        """
+        Create geodataframe from arcgis featureserver. Optionally filter rows
+
+        :param url: path to the url of the featureserver. Typically looks like:
+                    "https://maps.XX.com/arcgis/rest/services/XX/XX/FeatureServer"
+        :param layer_name: name of the layer
+        :param layer_index: index of the layer within the Feature Server
+        :param filter_dict: dict, {"column_name": [values] }
+        :param filter_type: str, include or exclude
+        :param index_col_src: column name of the index
+        :param mask: shapely polygon. Only the features that intersect the polygon will be loaded
+        :return: geodataframe
+        """
+
+        gdf = read_featureserver(url, layer_index)
 
         if mask and (gdf.geometry[0] is not None):
             gdf = gdf[gdf.intersects(mask)]
@@ -321,5 +357,4 @@ class HydamoObject:
 
 
 if __name__ == '__main__':
-    gdb = r'd:\Box Sync\BH3371 NBW Oosterw\BH3371 NBW Oosterw WIP\04_opzet_model\benodigde gegevens\00_brondata\gdb\export_watergangen_20200617\topologie_verbeterd.gdb\'
-    hd = HydamoObject()
+    pass
