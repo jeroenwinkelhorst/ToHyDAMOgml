@@ -18,7 +18,7 @@ def read_featureserver(url, layer_index):
         query_all = featureset.query(where=f'{COLNAME_OID}>=0')
         geojson = query_all.to_geojson
         gdf = gpd.read_file(geojson)
-        if gdf.crs.to_epsg() != wkid:
+        if gdf.crs['init'] != wkid:
             gdf.crs = 'EPSG:'+str(wkid)
         gdf[COLNAME_OID] = gdf[COLNAME_OID].astype(int)
         return gdf
