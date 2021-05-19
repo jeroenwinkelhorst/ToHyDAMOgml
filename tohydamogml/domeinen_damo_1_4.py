@@ -65,3 +65,11 @@ TYPESTUW = {
     26: "conserveringstuw",
     99: "onbekend"
 }
+
+TYPEREGELBAARHEID = {
+    1: "niet regelbaar (vast)",
+    2: "regelbaar, niet automatisch",
+    3: "regelbaar, automatisch",
+    4: "handmatig",
+    99: "overig",
+}

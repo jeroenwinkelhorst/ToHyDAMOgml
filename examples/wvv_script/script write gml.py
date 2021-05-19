@@ -12,8 +12,8 @@ sys.path.append(r"../../")
 from tohydamogml.hydamo_table import HydamoObject
 
 # path to json files
-# path_json = os.path.join("json")
-path_json = r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\02_Tools\config\json_WBD'
+path_json = os.path.join(r"../../config/json_WBD")
+# path_json = r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\02_Tools\config\json_WBD'
 
 # Optional: filepath to a python file with attributes functions. In the json files is referred to these functions.
 attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")

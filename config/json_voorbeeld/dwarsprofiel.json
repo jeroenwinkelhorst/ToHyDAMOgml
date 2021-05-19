@@ -1,0 +1,75 @@
+{
+  "object": "dwarsprofiel",
+  "source": {
+    "path": "00_Brondata\\gdb\\export_20200331\\Profielpunten 20200401.gdb",
+    "layer": "IWS_GEO_BESCHR_PROFIELPUNTEN",
+    "filter": {"PBPSOORT": [31, 32]},
+    "filter_type": "exclude",
+    "query": "(PRWIDENT.str.find('DP')>=0) or (PRWIDENT.str.startswith('CC', na=False))"
+  },
+  "geometry": {
+      "drop": false,
+      "func": ""
+  },
+  "related_data": {
+    "path": "",
+    "layer": "",
+    "mapping_col_src": "",
+    "mapping_col_rel": ""
+  },
+  "index": {
+      "name": "code",
+      "src_col": "PBP_PBP_ID"
+    },
+  "attributes": [
+    { "name": "administratiefgebied",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "20"
+    },
+    { "name": "codevolgnummer",
+      "type": "Integer",
+      "required": true,
+      "src_col": "IWS_VOLGNR",
+      "func": "",
+      "default": ""
+    },
+    { "name": "profielcode",
+      "type": "String",
+      "required": true,
+      "src_col": "PRW_PRW_ID",
+      "func": "",
+      "default": ""
+    },
+    { "name": "typeprofielcode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "1"
+    },
+    { "name": "ruwheidstypecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "4"
+    },
+    { "name": "ruwheidswaardelaag",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "30.0"
+    },
+    { "name": "ruwheidswaardehoog",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "20.0"
+    }
+  ]
+}

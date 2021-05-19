@@ -1,0 +1,134 @@
+{
+    "object": "afsluitmiddel",
+    "source": {
+        "path": "c:\\Box Sync\\BG6255 D HYDRO TKI2 WIP\\06_Pilot Modelbouw\\01_test workflow\\00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
+        "layer": "Afsluitmiddel",
+        "filter": {
+            "STATUSOBJECT": [
+                3
+            ]
+        },
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": true,
+        "func": ""
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": false,
+            "src_col": "NAAM",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "STATUSOBJECT",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "codegerelateerdobject",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "afsluitmiddel_codegerelateerdobject",
+            "default": 999
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "soortafsluitmiddelcode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "SOORTAFSLUITMIDDEL",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "soortregelbaarheidcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "SOORTREGELBAARHEID",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "breedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "minimalehoogtebovenkant",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "maximalehoogtebovenkant",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "afvoercoefficient",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 1
+        }
+    ]
+}
