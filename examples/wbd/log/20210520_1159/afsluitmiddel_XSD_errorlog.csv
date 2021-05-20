@@ -1,0 +1,3 @@
+,code,error
+AKN00702,AKN00702,"Element '{http://www.nhi.nu/gml}soortregelbaarheidcode': [facet 'enumeration'] The value '999' is not an element of the set {'1', '2', '3', '4', '99'}."
+AKN00589,AKN00589,"Element '{http://www.nhi.nu/gml}soortregelbaarheidcode': [facet 'enumeration'] The value '999' is not an element of the set {'1', '2', '3', '4', '99'}."
