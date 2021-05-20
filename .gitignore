@@ -106,10 +106,10 @@ ENV/
 # project
 *.tif
 *.tif.aux.xml
-*.shp
-*.dbf
-*.shx
-*.prj
+#*.shp
+#*.dbf
+#*.shx
+#*.prj
 *.lyr
 *.qpj
 *.cpg
@@ -120,6 +120,7 @@ ENV/
 *.pptx
 *.html
 *.lit
+*.lock
 /playground
 /log
 /output

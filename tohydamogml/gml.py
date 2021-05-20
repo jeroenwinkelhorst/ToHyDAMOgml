@@ -46,8 +46,8 @@ class Gml:
         elif type(self.gdf.crs) == dict:
             if 'init' in self.gdf.crs.keys():
                 self.crs = self.gdf.crs['init']
-        elif type(self.gdf.crs) == pyproj.crs.CRS:
-            self.crs = self.gdf.crs.srs
+        # elif type(self.gdf.crs) == pyproj.crs.CRS:
+        #     self.crs = self.gdf.crs.srs
         else:
             self.crs = self.gdf.crs
         self._xsd_schema = None

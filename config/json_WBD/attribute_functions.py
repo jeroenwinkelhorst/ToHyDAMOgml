@@ -9,6 +9,7 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import LineString
 from tohydamogml.domeinen_damo_1_4 import *
+from tohydamogml.config import *
 
 
 # Columns in DAMO to search for id of related object
@@ -130,58 +131,97 @@ def _duikerhevelsifon_get_skvccode(damo_typekruising):
     else:
         return 999
 
+def duikersifonhevel_vorm(damo_gdf=None, obj=None):
+    """"
+    Zet naam van VORMKOKER om naar attribuutwaarde
+    """
+    data = [_duikersifonhevel_vorm(name) for name in damo_gdf['VORMKOKER']]
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
+
+
+def _duikersifonhevel_vorm(current_vorm):
+    """"
+    Zoekt door VORMKOKER naar de naam van de vorm, geeft attribuut waarde uit DAMO
+    """
+    if current_vorm not in VORMKOKER.values():
+        return 999
+    for i, vorm in VORMKOKER.items():
+        if vorm == current_vorm:
+            return i
+
+
 def obj_soortmateriaal(damo_gdf=None, obj=None, damo_soortmateriaal="SOORTMATERIAAL"):
     return damo_gdf.apply(lambda x: _obj_get_soortmateriaal(x[damo_soortmateriaal]), axis=1)
 
 def _obj_get_soortmateriaal(materiaalcode):
     """Return Strickler Ks waarde
-    Bron: Ven te Chow - Open channel hydraulics tbl 5-6
-    TODO: omschrijven naar dictionary in config"""
-    if materiaalcode in MATERIAALKUNSTWERK.keys():
-        if MATERIAALKUNSTWERK[materiaalcode] == "beton":
-            return 75
-        if MATERIAALKUNSTWERK[materiaalcode] == "gewapend beton":
-            return 75
-        if MATERIAALKUNSTWERK[materiaalcode] == "metselwerk":
-            return 65
-        if MATERIAALKUNSTWERK[materiaalcode] == "metaal":
-            return 80
-        if MATERIAALKUNSTWERK[materiaalcode] == "aluminium":
-            return 80
-        if MATERIAALKUNSTWERK[materiaalcode] == "ijzer":
-            return 80
-        if MATERIAALKUNSTWERK[materiaalcode] == "gietijzer":
-            return 75
-        if MATERIAALKUNSTWERK[materiaalcode] == "PVC":
-            return 80
-        if MATERIAALKUNSTWERK[materiaalcode] == "gegolfd plaatstaal":
-            return 65
-        if MATERIAALKUNSTWERK[materiaalcode] == "asbestcement":
-            return 110
-    return 999
+    Bron: Ven te Chow - Open channel hydraulics tbl 5-6"""
+    if materiaalcode not in RUWHEID_VEN_TE_CHOW.keys():
+        return 999
+    else:
+        return RUWHEID_VEN_TE_CHOW[materiaalcode]
 
 
-def afsluitmiddel_codegerelateerdobject(damo_gdf=None, obj=None, col_relaties=DM_COL_CODEGERELATEERD_OBJECT):
-    """Get code of related object. Is more the one code is defined, None value is returned
-    TODO: improve code
+def afsluitmiddel_soort(damo_gdf=None, obj=None):
+    """"
+    Zet naam van SOORTAFSLUITMIDDEL om naar attribuutwaarde
     """
-    return damo_gdf[col_relaties].apply(lambda x: _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb=obj["source"]['path'], index_col=obj["index"]['name'], index_col_damo = obj["index"]["src_col"]), axis=1)
+    data = [_afsluitmiddel_soort(name) for name in damo_gdf['SOORTAFSLUITMIDDEL']]
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
 
 
-def _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb, index_col, index_col_damo, damo_objectid=COL_OBJECTID):
-    """Get code based on object id
-    TODO: improve code
+def _afsluitmiddel_soort(current_soort):
+    """"
+    Zoekt door SOORTAFSLUITMIDDEL naar de naam van de vorm, geeft attribuut waarde uit DAMO
     """
+    if current_soort not in SOORTAFSLUITMIDDEL.values():
+        return 999
+    for i, soort in SOORTAFSLUITMIDDEL.items():
+        if soort == current_soort:
+            return i
 
-    object_ids = tuple(zip(col_relaties, x))
+def afsluitmiddel_regelbaarheid(damo_gdf=None, obj=None):
+    """"
+    Zet naam van AFSLUITREGELBAARHEID om naar attribuutwaarde
+    """
+    data = [_afsluitmiddel_regelbaarheid(name) for name in damo_gdf['SOORTREGELBAARHEID']]
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
 
-    for object, id in object_ids:
-        if (object[0:-2].lower() in DM_LAYERS.keys()) and not pd.isnull(id):
-            if x.name == "KAF-441":
-                stop=0
-            gdf_tmp = _create_gdf(object[0:-2].lower(), filegdb, index_col, index_col_src=index_col_damo)
-            return gdf_tmp[gdf_tmp[damo_objectid] == id].index.values[0]
-    return None
+
+def _afsluitmiddel_regelbaarheid(current_soort):
+    """"
+    Zoekt door TYPEREGELBAARHEID naar de naam van het soort regelbaarheid, geeft attribuut waarde uit DAMO
+    """
+    if current_soort not in TYPEREGELBAARHEID.values():
+        return 999
+    for i, soort in TYPEREGELBAARHEID.items():
+        if soort == current_soort:
+            return i
+
+# def afsluitmiddel_codegerelateerdobject(damo_gdf=None, obj=None, col_relaties=DM_COL_CODEGERELATEERD_OBJECT):
+#     """Get code of related object. Is more the one code is defined, None value is returned
+#     TODO: improve code
+#     """
+#     return damo_gdf[col_relaties].apply(lambda x: _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb=obj["source"]['path'], index_col=obj["index"]['name'], index_col_damo = obj["index"]["src_col"]), axis=1)
+#
+#
+# def _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb, index_col, index_col_damo, damo_objectid=COL_OBJECTID):
+#     """Get code based on object id
+#     TODO: improve code
+#     """
+#
+#     object_ids = tuple(zip(col_relaties, x))
+#
+#     for object, id in object_ids:
+#         if (object[0:-2].lower() in DM_LAYERS.keys()) and not pd.isnull(id):
+#             if x.name == "KAF-441":
+#                 stop=0
+#             gdf_tmp = _create_gdf(object[0:-2].lower(), filegdb, index_col, index_col_src=index_col_damo)
+#             return gdf_tmp[gdf_tmp[damo_objectid] == id].index.values[0]
+#     return None
 
 
 def brug_pt_to_line(damo_gdf=None, obj=None):

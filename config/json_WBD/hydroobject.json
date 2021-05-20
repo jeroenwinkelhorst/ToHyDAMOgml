@@ -1,15 +1,12 @@
 {
     "object": "hydroobject",
     "source": {
-        "path": "..\\gdb\\Breg_Hydamo.gdb",
-        "layer": "Hydroobject",
-        "filter": {
-            "STATUSOBJECT": [
-                3
-            ]
-        },
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "14",
+        "filter": "",
         "filter_type": "include",
-        "query": "CATEGORIEOPPWATERLICHAAM == 1 or CATEGORIEOPPWATERLICHAAM == 2"
+        "query": ""
     },
     "geometry": {
         "drop": false,

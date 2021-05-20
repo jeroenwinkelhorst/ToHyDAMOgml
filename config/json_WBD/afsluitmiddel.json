@@ -1,13 +1,10 @@
 {
     "object": "afsluitmiddel",
     "source": {
-        "path": "c:\\Box Sync\\BG6255 D HYDRO TKI2 WIP\\06_Pilot Modelbouw\\01_test workflow\\00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
-        "layer": "Afsluitmiddel",
-        "filter": {
-            "STATUSOBJECT": [
-                3
-            ]
-        },
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "0",
+        "filter": "",
         "filter_type": "include",
         "query": ""
     },
@@ -27,14 +24,6 @@
     },
     "attributes": [
         {
-            "name": "naam",
-            "type": "String",
-            "required": false,
-            "src_col": "NAAM",
-            "func": "",
-            "default": ""
-        },
-        {
             "name": "statusobjectcode",
             "type": "Integer",
             "required": false,
@@ -46,8 +35,8 @@
             "name": "codegerelateerdobject",
             "type": "String",
             "required": true,
-            "src_col": "",
-            "func": "afsluitmiddel_codegerelateerdobject",
+            "src_col": "NAAM",
+            "func": "",
             "default": 999
         },
         {
@@ -79,7 +68,7 @@
             "type": "Integer",
             "required": true,
             "src_col": "SOORTAFSLUITMIDDEL",
-            "func": "",
+            "func": "afsluitmiddel_soort",
             "default": 999
         },
         {
@@ -87,7 +76,7 @@
             "type": "Integer",
             "required": false,
             "src_col": "SOORTREGELBAARHEID",
-            "func": "",
+            "func": "afsluitmiddel_regelbaarheid",
             "default": ""
         },
         {
