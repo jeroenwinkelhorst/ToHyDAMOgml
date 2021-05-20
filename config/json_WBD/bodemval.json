@@ -1,12 +1,13 @@
 {
   "object": "bodemval",
-  "source": {
-    "path": "00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
-    "layer": "Bodemval",
-    "filter": {"STATUSOBJECT": [3]},
-    "filter_type": "include",
-    "query":""
-  },
+    "source": {
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "3",
+        "filter": "",
+        "filter_type": "include",
+        "query": ""
+    },
   "geometry": {
       "drop": false,
       "func": ""
@@ -62,7 +63,7 @@
       "required": true,
       "src_col": "",
       "func": "",
-      "default": "20"
+      "default": "3"
     }
   ]
 }

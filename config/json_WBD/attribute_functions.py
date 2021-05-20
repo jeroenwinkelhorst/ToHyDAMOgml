@@ -201,6 +201,7 @@ def _afsluitmiddel_regelbaarheid(current_soort):
         if soort == current_soort:
             return i
 
+
 # def afsluitmiddel_codegerelateerdobject(damo_gdf=None, obj=None, col_relaties=DM_COL_CODEGERELATEERD_OBJECT):
 #     """Get code of related object. Is more the one code is defined, None value is returned
 #     TODO: improve code

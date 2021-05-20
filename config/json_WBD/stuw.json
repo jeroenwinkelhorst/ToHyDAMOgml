@@ -69,7 +69,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         },
         {
             "name": "soortstuwcode",

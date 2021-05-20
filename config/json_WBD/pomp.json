@@ -1,13 +1,10 @@
 {
     "object": "pomp",
     "source": {
-        "path": "c:\\Box Sync\\BG6255 D HYDRO TKI2 WIP\\06_Pilot Modelbouw\\01_test workflow\\00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
-        "layer": "Gemaal",
-        "filter": {
-            "STATUSOBJECT": [
-                3
-            ]
-        },
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "5",
+        "filter": "",
         "filter_type": "include",
         "query": ""
     },
@@ -16,11 +13,10 @@
         "func": ""
     },
     "related_data": {
-        "path": "00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
-        "layer": "Pomp",
-        "mapping_col_src": "OBJECTID",
-        "mapping_col_rel": "rel_GEMAALID",
-        "replace_index_col": "rel_CODE"
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
     },
     "index": {
         "name": "code",
@@ -63,7 +59,7 @@
             "name": "maximalecapaciteit",
             "type": "Double",
             "required": true,
-            "src_col": "rel_MAXIMALECAPACITEIT",
+            "src_col": "MAXIMALECAPACITEIT",
             "func": "",
             "default": "0"
         },
@@ -73,7 +69,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         }
     ]
 }

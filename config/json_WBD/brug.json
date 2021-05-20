@@ -1,13 +1,10 @@
 {
     "object": "brug",
     "source": {
-        "path": "c:\\Box Sync\\BG6255 D HYDRO TKI2 WIP\\06_Pilot Modelbouw\\01_test workflow\\00_Brondata\\gdb\\export_20200414\\Breg_Hydamo.gdb",
-        "layer": "Brug",
-        "filter": {
-            "STATUSOBJECT": [
-                3
-            ]
-        },
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "4",
+        "filter": "",
         "filter_type": "include",
         "query": ""
     },
@@ -102,7 +99,7 @@
             "name": "lengte",
             "type": "Double",
             "required": true,
-            "src_col": "WS_LENGTEBRUG",
+            "src_col": "",
             "func": "",
             "default": 999
         },
