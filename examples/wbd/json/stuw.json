@@ -69,7 +69,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "3"
+            "default": "20"
         },
         {
             "name": "soortstuwcode",
@@ -77,7 +77,7 @@
             "required": false,
             "src_col": "SOORTSTUW",
             "func": "stuw_code",
-            "default": 999
+            "default": 99
         },
         {
             "name": "soortregelbaarheidcode",
@@ -85,7 +85,7 @@
             "required": true,
             "src_col": "SOORTREGELBAARHEID",
             "func": "stuw_regelbaarheid",
-            "default": 999
+            "default": 99
         },
         {
             "name": "laagstedoorstroombreedte",

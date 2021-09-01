@@ -68,8 +68,8 @@ def _stuw_regelbaarheid(current_name=None):
     Zoekt door TYPEREGELBAARHEID naar de naam van het stuwtype, geeft attribuut waarde uit DAMO
     """
     if current_name not in TYPEREGELBAARHEID.values():
-        return 999
-    for i, name in TYPESTUW.items():
+        return 99
+    for i, name in TYPEREGELBAARHEID.items():
         if name == current_name:
             return i
 
@@ -196,10 +196,16 @@ def _afsluitmiddel_regelbaarheid(current_soort):
     Zoekt door TYPEREGELBAARHEID naar de naam van het soort regelbaarheid, geeft attribuut waarde uit DAMO
     """
     if current_soort not in TYPEREGELBAARHEID.values():
-        return 999
+        return 99
     for i, soort in TYPEREGELBAARHEID.items():
         if soort == current_soort:
             return i
+
+def gemaal_rename_index(damo_gdf=None, obj=None):
+    """
+    Hernoem gemaal index met de prefix: "GEM_"
+    """
+    return ["GEM_"+code for code in damo_gdf.index]
 
 
 # def afsluitmiddel_codegerelateerdobject(damo_gdf=None, obj=None, col_relaties=DM_COL_CODEGERELATEERD_OBJECT):
@@ -283,8 +289,6 @@ def _table_to_data_frame(in_table, input_fields=None, where_clause=None, prefix=
     if prefix:
         fc_dataframe = fc_dataframe.add_prefix(prefix)
     return fc_dataframe
-
-
 
 # def _codegerelateerdobject(src_gdf=None, obj=None, attr, gdf_src, ref_col_src, gdf_rel, oid_col_rel, return_col_rel):
 #     """

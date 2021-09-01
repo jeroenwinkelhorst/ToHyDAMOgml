@@ -69,7 +69,7 @@
             "required": true,
             "src_col": "SOORTAFSLUITMIDDEL",
             "func": "afsluitmiddel_soort",
-            "default": 999
+            "default": 99
         },
         {
             "name": "soortregelbaarheidcode",
@@ -83,7 +83,7 @@
             "name": "breedte",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "BREEDTEOPENING",
             "func": "",
             "default": 999
         },
@@ -91,7 +91,7 @@
             "name": "hoogte",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "HOOGTEOPENING",
             "func": "",
             "default": 999
         },
@@ -118,6 +118,14 @@
             "src_col": "",
             "func": "",
             "default": 1
+        },
+                {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "20"
         }
     ]
 }

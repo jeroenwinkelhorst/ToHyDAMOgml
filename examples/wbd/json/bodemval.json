@@ -63,7 +63,7 @@
       "required": true,
       "src_col": "",
       "func": "",
-      "default": "3"
+      "default": "20"
     }
   ]
 }

@@ -102,6 +102,13 @@ class HydamoObject:
 
         self.gdf = self._create_empty_gdf(gdf_src)
 
+        # Index operations
+        if "func" in self.obj["index"].keys():
+            func = eval("self.ws." + self.obj["index"]["func"])
+            ind = pd.Index(data=func(damo_gdf=gdf_src, obj=self.obj), name='code')
+            self.gdf.index = ind
+
+        # Add attributes
         for attr in self.obj['attributes']:
             self._add_attribute(attr, gdf_src)
 

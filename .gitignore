@@ -136,3 +136,7 @@ ENV/
 !/examples/wvv_notebook/shp/OW.prj
 !/examples/wvv_notebook/shp/OW.shp
 !/examples/wvv_notebook/shp/OW.shx
+examples/wbd/log/20210901_1343/stuw_XSD_errorlog.dbf
+examples/wbd/log/
+examples/wbd/output_sept_2021/
+examples/wbd/output/

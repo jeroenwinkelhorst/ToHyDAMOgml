@@ -120,12 +120,12 @@
             "default": 999
         },
         {
-            "name": "vormcode",
+            "name": "vormkokercode",
             "type": "Integer",
             "required": true,
             "src_col": "VORMKOKER",
             "func": "duikersifonhevel_vorm",
-            "default": 999
+            "default": 99
         },
         {
             "name": "soortkokervormigeconstructiecode",
