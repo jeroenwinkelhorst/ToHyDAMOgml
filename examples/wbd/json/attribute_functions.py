@@ -207,29 +207,17 @@ def gemaal_rename_index(damo_gdf=None, obj=None):
     """
     return ["GEM_"+code for code in damo_gdf.index]
 
+def dwp_rename_index_boven(damo_gdf=None, obj=None):
+    """
+    Hernoem DWP index op basis van legger waterloop code met prefix "DWP_boven"
+    """
+    return [f"DWP_boven_{code}" for code in damo_gdf.index]
 
-# def afsluitmiddel_codegerelateerdobject(damo_gdf=None, obj=None, col_relaties=DM_COL_CODEGERELATEERD_OBJECT):
-#     """Get code of related object. Is more the one code is defined, None value is returned
-#     TODO: improve code
-#     """
-#     return damo_gdf[col_relaties].apply(lambda x: _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb=obj["source"]['path'], index_col=obj["index"]['name'], index_col_damo = obj["index"]["src_col"]), axis=1)
-#
-#
-# def _afsluitmiddel_codegerelateerdobject_apply(x, col_relaties, filegdb, index_col, index_col_damo, damo_objectid=COL_OBJECTID):
-#     """Get code based on object id
-#     TODO: improve code
-#     """
-#
-#     object_ids = tuple(zip(col_relaties, x))
-#
-#     for object, id in object_ids:
-#         if (object[0:-2].lower() in DM_LAYERS.keys()) and not pd.isnull(id):
-#             if x.name == "KAF-441":
-#                 stop=0
-#             gdf_tmp = _create_gdf(object[0:-2].lower(), filegdb, index_col, index_col_src=index_col_damo)
-#             return gdf_tmp[gdf_tmp[damo_objectid] == id].index.values[0]
-#     return None
-
+def dwp_rename_index_beneden(damo_gdf=None, obj=None):
+    """
+    Hernoem DWP index op basis van legger waterloop code met prefix "DWP_boven"
+    """
+    return [f"DWP_beneden_{code}" for code in damo_gdf.index]
 
 def brug_pt_to_line(damo_gdf=None, obj=None):
     return damo_gdf.apply(lambda x: _brug_profile_geometry(x, lijn_lengte="WS_LENGTEBRUG" ,rotate_degree=0), axis=1)
@@ -251,82 +239,19 @@ def _brug_profile_geometry(row, direction="RICHTING", lijn_lengte="WS_LENGTEBRUG
 
     return LineString([(row.geometry.x-float(dx), row.geometry.y-float(dy)),(row.geometry.x+float(dx), row.geometry.y+float(dy))])
 
-def _create_gdf(layer, filegdb, index_name: str, index_col_src: str=None):
-    """
-    Create geodataframe from database.
-    Optionally remove object based on statusobjectcode
-
-    filter: dict, {"column_name": [values] }
-    filter_type: str, include or exclude
-    """
-    gdf = gpd.read_file(filegdb, driver="FileGDB", layer=layer)
-
-    # Add original ESRI ID to gdf
-    df_arcpy = _table_to_data_frame(filegdb + "//" + layer, prefix=None)
-    if COL_OBJECTID == df_arcpy.index.name:
-        gdf = gdf.merge(df_arcpy.reset_index().set_index(index_col_src)[COL_OBJECTID].to_frame(), how="left", left_on="CODE",
-                        right_index=True)
-
-    gdf.set_index(index_col_src, inplace=True)
-    gdf.index.names = [index_name]
-
-    #remove objects without a unique code
-    gdf = gdf[gdf.index.notnull()]
-
-    return gdf
-
-def _table_to_data_frame(in_table, input_fields=None, where_clause=None, prefix="rel_"):
-    """Function will convert an arcgis table into a pandas dataframe with an object ID index, and the selected
-    input fields using an arcpy.da.SearchCursor."""
-    OIDFieldName = arcpy.Describe(in_table).OIDFieldName
-    if input_fields:
-        final_fields = [OIDFieldName] + input_fields
-    else:
-        final_fields = [field.name for field in arcpy.ListFields(in_table)]
-    data = [row for row in arcpy.da.SearchCursor(in_table, final_fields, where_clause=where_clause)]
-    fc_dataframe = pd.DataFrame(data, columns=final_fields)
-    fc_dataframe = fc_dataframe.set_index(OIDFieldName, drop=True)
-    if prefix:
-        fc_dataframe = fc_dataframe.add_prefix(prefix)
-    return fc_dataframe
-
-# def _codegerelateerdobject(src_gdf=None, obj=None, attr, gdf_src, ref_col_src, gdf_rel, oid_col_rel, return_col_rel):
-#     """
-#     Gets code of related feature with a relation defined in objectids
-#
-#     attr: column name attribute
-#     gdf_src: source gdf
-#     ref_col_src: column with objectid in source
-#     gdf_rel: related gdf
-#     oid_col_rel: column with objectid in related gdf
-#     return_col_rel: column with value to be returned
-#     TODO: move this function to custimized functions?
-#     """
-#     tmp_attr = gdf_src.apply(
-#         lambda x: _codegerelateerdobject_apply(x[ref_col_src], gdf_rel, oid_col_rel,
-#                                                     return_col_rel), axis=1)
-#     return pd.DataFrame(data={attr: tmp_attr})
-#
-# def _codegerelateerdobject_apply(objectid, gdf_rel, oid_col_rel, return_col_rel):
-#     """
-#     TODO: move this function to custimized functions?
-#     :param objectid:
-#     :param gdf_rel:
-#     :param oid_col_rel:
-#     :param return_col_rel:
-#     :return:
-#     """
-#     gdf_rel = gdf_rel.reset_index()
-#     return gdf_rel[gdf_rel[oid_col_rel] == objectid][return_col_rel].values[0]
-#
-# def _add_geom_gerelateerdobject(self, col_codegerelateerdobject, gemaal_gdf):
-#     """Add geometry from related object. Row selection by index"""
-#     self.gdf['geometry'] = self.gdf.apply(
-#         lambda x: gemaal_gdf.loc[x[col_codegerelateerdobject],'geometry'], axis=1)
-#     self.gdf.crs = gemaal_gdf.crs
-
 def create_dwp_line():
     pass
+
+def insteek_hoogte_bovenstrooms(damo_gdf=None, obj=None):
+    data = [bodem + 2 for bodem in damo_gdf['WS_BH_BOVENSTROOMS_L']]
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
+
+
+def insteek_hoogte_benedenstrooms(damo_gdf=None, obj=None):
+    data = [bodem + 2 for bodem in damo_gdf['WS_BH_BENEDENSTROOMS_L']]
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
 
 if __name__ == '__main__':
     import sys

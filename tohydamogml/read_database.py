@@ -85,3 +85,7 @@ def get_crs(path, layer):
             if 'init' in f.crs.keys():
                 return f.crs['init']
         return None
+
+if __name__ == '__main__':
+    a = read_featureserver('https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer', '14')
+    a.to_file(r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\04_GIS\kopie_server\Cat_A_Waterloop.shp')

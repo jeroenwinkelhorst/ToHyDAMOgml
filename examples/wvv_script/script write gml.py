@@ -31,7 +31,7 @@ json_objects = [
     # os.path.join(path_json, "afsluitmiddel.json"),
     # os.path.join(path_json, "brug.json"),
     # os.path.join(path_json, "brug_dwp.json"),
-    # os.path.join(path_json, "dwarsprofiel.json"),
+    # os.path.join(path_json, "dwarsprofiel_bovenstrooms_legger.json"),
     # os.path.join(path_json, "gemaal.json"),
     # os.path.join(path_json, "pomp.json"),
 

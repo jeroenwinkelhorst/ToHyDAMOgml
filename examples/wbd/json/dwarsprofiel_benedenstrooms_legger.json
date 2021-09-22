@@ -1,0 +1,156 @@
+{
+  "object": "normgeparametriseerdprofiel",
+  "source": {
+    "type": "FeatureServer",
+    "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Legger_Vigerend/FeatureServer",
+    "layer": "18",
+    "filter": "",
+    "filter_type": "include",
+    "query": ""
+  },
+  "geometry": {
+    "drop": false,
+    "func": ""
+  },
+  "related_data": {
+    "path": "",
+    "layer": "",
+    "mapping_col_src": "",
+    "mapping_col_rel": ""
+  },
+  "index": {
+    "name": "code",
+    "src_col": "CODE",
+    "func": "dwp_rename_index_beneden"
+  },
+  "attributes": [
+    {
+      "name": "naam",
+      "type": "String",
+      "required": false,
+      "src_col": "NAAM",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "statusobjectcode",
+      "type": "Integer",
+      "required": false,
+      "src_col": "STATUSOBJECT",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "objectbegintijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTBEGINTIJD",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "objecteindtijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTEINDTIJD",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "hyperlink",
+      "type": "String",
+      "required": false,
+      "src_col": "HYPERLINK",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "bodemhoogtebenedenstrooms",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BH_BENEDENSTROOMS_L",
+      "func": "",
+      "default": 997
+    },
+    {
+      "name": "bodemhoogtebovenstrooms",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BH_BENEDENSTROOMS_L",
+      "func": "",
+      "default": 997
+    },
+    {
+      "name": "bodembreedte",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BODEMBREEDTE_L",
+      "func": "",
+      "default": 2
+    },
+    {
+      "name": "taludhellinglinkerzijde",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_TALUD_LINKS_L",
+      "func": "",
+      "default": 2
+    },
+    {
+      "name": "taludhellingrechterzijde",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_TALUD_RECHTS_L",
+      "func": "",
+      "default": 2
+    },
+    {
+      "name": "hoogteinsteeklinkerzijde",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BH_BENEDENSTROOMS_L",
+      "func": "insteek_hoogte_benedenstrooms",
+      "default": 999
+    },
+    {
+      "name": "hoogteinsteekrechterzijde",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BH_BENEDENSTROOMS_L",
+      "func": "insteek_hoogte_benedenstrooms",
+      "default": 999
+    },
+    {
+      "name": "ruwheidstypecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 4
+    },
+    {
+      "name": "ruwheidswaardelaag",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 30
+    },
+    {
+      "name": "ruwheidswaardehoog",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 20
+    },
+    {
+      "name": "administratiefgebied",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "3"
+    }
+  ]
+}
