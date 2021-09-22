@@ -27,15 +27,15 @@ mask = r"c:\local\TKI_WBD\aanvullende_data\Aa_of_Weerijs_v2.shp"
 
 # list with json objects to loop through
 json_objects = [
-    os.path.join(path_json, "hydroobject.json"),
-    os.path.join(path_json, "stuw.json"),
-    os.path.join(path_json, "duikersifonhevel.json"),
+    # os.path.join(path_json, "hydroobject.json"),
+    # os.path.join(path_json, "stuw.json"),
+    # os.path.join(path_json, "duikersifonhevel.json"),
     # os.path.join(path_json, "afsluitmiddel.json"),
-    os.path.join(path_json, "brug.json"),
+    # os.path.join(path_json, "brug.json"),
     # os.path.join(path_json, "brug_dwp.json"),
-    # os.path.join(path_json, "dwarsprofiel.json"),
-    os.path.join(path_json, "gemaal.json"),
-    os.path.join(path_json, "pomp.json"),
+    os.path.join(path_json, "dwarsprofiel.json"),
+    # os.path.join(path_json, "gemaal.json"),
+    # os.path.join(path_json, "pomp.json"),
     # os.path.join(path_json, "sturing.json"),
     # os.path.join(path_json, "bodemval.json"),
     # os.path.join(path_json, "meetlocatie.json"),

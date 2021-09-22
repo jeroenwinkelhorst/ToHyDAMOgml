@@ -7,6 +7,7 @@ import fiona
 import geopandas as gpd
 import pandas as pd
 from tohydamogml.config import COLNAME_OID
+from shapely.geometry import Point, LineString
 
 
 def read_featureserver(url, layer_index):
@@ -15,12 +16,29 @@ def read_featureserver(url, layer_index):
     wkid = collection.properties['spatialReference']['wkid']
     featureset = collection.layers[int(layer_index)]
     if featureset.properties.geometryField is not None:
-        query_all = featureset.query(where=f'{COLNAME_OID}>=0')
-        geojson = query_all.to_geojson
-        gdf = gpd.read_file(geojson)
-        if gdf.crs['init'] != wkid:
+        fieldnames = [field['name'] for field in featureset.properties.fields]
+        if COLNAME_OID in fieldnames:
+            col = COLNAME_OID
+        else:
+            cols = [name for name in fieldnames if name.startswith(COLNAME_OID)]
+            if len(cols) == 0:
+                raise ValueError(f"Can't find column starting with '{COLNAME_OID}', thus unable to query dataset")
+            else:
+                col = cols[0]
+        query_all = featureset.query(where=f'{col}>=0')
+        try:
+            geojson = query_all.to_geojson
+            gdf = gpd.read_file(geojson)
+            if gdf.crs['init'] != wkid:
+                gdf.crs = 'EPSG:' + str(wkid)
+        except:
+            # For some reason, the geojson created from the esri dataset doesn't always get read by geopandas/fiona.
+            # If the geojson method fails, a manual operation is used to create the geodataframe anyway.
+            sdf = query_all.sdf
+            sdf['geometry'] = sdf.apply(lambda x: LineString([Point(xy[0], xy[1]) for xy in x['SHAPE']['paths'][0]]), axis=1)
+            gdf = gpd.GeoDataFrame(sdf)
             gdf.crs = 'EPSG:'+str(wkid)
-        gdf[COLNAME_OID] = gdf[COLNAME_OID].astype(int)
+        gdf[COLNAME_OID] = gdf[col].astype(int)
         return gdf
     else:
         #Code adjusted from read_filegdb, but might not be needed

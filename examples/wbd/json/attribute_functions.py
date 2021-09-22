@@ -325,7 +325,14 @@ def _table_to_data_frame(in_table, input_fields=None, where_clause=None, prefix=
 #         lambda x: gemaal_gdf.loc[x[col_codegerelateerdobject],'geometry'], axis=1)
 #     self.gdf.crs = gemaal_gdf.crs
 
+def create_dwp_line():
+    pass
+
 if __name__ == '__main__':
-    dummydf = pd.DataFrame(data={'soortstuwcode': ['overlaat', 'schotbalkstuw']})
-    code = stuw_code(dummydf)
-    print(code)
+    import sys
+    sys.path.append('../../..')
+    from tohydamogml.read_database import read_featureserver
+    waterlopen = read_featureserver('https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Legger_Vigerend/FeatureServer', '18')
+    # waterlopen = read_featureserver('https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer', '14')
+    test = waterlopen.iloc[0]
+    print(test)

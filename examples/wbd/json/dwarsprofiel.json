@@ -1,11 +1,12 @@
 {
   "object": "dwarsprofiel",
   "source": {
-    "path": "00_Brondata\\gdb\\export_20200331\\Profielpunten 20200401.gdb",
-    "layer": "IWS_GEO_BESCHR_PROFIELPUNTEN",
-    "filter": {"PBPSOORT": [31, 32]},
-    "filter_type": "exclude",
-    "query": "(PRWIDENT.str.find('DP')>=0) or (PRWIDENT.str.startswith('CC', na=False))"
+    "type": "FeatureServer",
+    "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Legger_Vigerend/FeatureServer",
+    "layer": "18",
+    "filter": "",
+    "filter_type": "include",
+    "query": ""
   },
   "geometry": {
       "drop": false,
@@ -27,35 +28,70 @@
       "required": true,
       "src_col": "",
       "func": "",
-      "default": "20"
+      "default": "3"
     },
-    { "name": "codevolgnummer",
-      "type": "Integer",
+    { "name": "code",
+      "type": "",
       "required": true,
-      "src_col": "IWS_VOLGNR",
+      "src_col": "",
       "func": "",
       "default": ""
     },
-    { "name": "profielcode",
-      "type": "String",
+    { "name": "bodemhoogtebenedenstrooms",
+      "type": "",
       "required": true,
-      "src_col": "PRW_PRW_ID",
+      "src_col": "",
       "func": "",
       "default": ""
     },
-    { "name": "typeprofielcode",
+    { "name": "bodemhoogtebovenstrooms",
       "type": "Integer",
       "required": true,
       "src_col": "",
       "func": "",
-      "default": "1"
+      "default": ""
+    },
+    { "name": "bodembreedte",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BODEMBREEDTE_L",
+      "func": "",
+      "default": "2"
+    },
+    { "name": "taludhellinglinkerzijde",
+      "type": "",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": ""
+    },
+    { "name": "taludhellingrechterzijde",
+      "type": "",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": ""
+    },
+    { "name": "hoogteinsteeklinkerzijde",
+      "type": "",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": ""
+    },
+    { "name": "hoogteinsteekrechterzijde",
+      "type": "",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": ""
     },
     { "name": "ruwheidstypecode",
-      "type": "Integer",
+      "type": "Interger",
       "required": true,
       "src_col": "",
       "func": "",
-      "default": "4"
+      "default": 4
     },
     { "name": "ruwheidswaardelaag",
       "type": "Double",
@@ -70,6 +106,13 @@
       "src_col": "",
       "func": "",
       "default": "20.0"
+    },
+    { "name": "administratiefgebied",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "3"
     }
   ]
 }
