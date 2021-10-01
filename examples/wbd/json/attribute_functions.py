@@ -239,8 +239,33 @@ def _brug_profile_geometry(row, direction="RICHTING", lijn_lengte="WS_LENGTEBRUG
 
     return LineString([(row.geometry.x-float(dx), row.geometry.y-float(dy)),(row.geometry.x+float(dx), row.geometry.y+float(dy))])
 
-def create_dwp_line():
-    pass
+def dwp_upstream(damo_gdf=None, obj=None):
+    return damo_gdf.apply(lambda x: _make_dwp(x, 'upstream', profile_dist=5), axis=1)
+
+def dwp_downstream(damo_gdf=None, obj=None):
+    return damo_gdf.apply(lambda x: _make_dwp(x, 'downstream', profile_dist=5), axis=1)
+
+def _make_dwp(row, up_or_down: str = 'upstream', profile_dist: float = 5):
+    width = row['WS_BODEMBREEDTE_L'] + 2 * row['WS_TALUD_LINKS_L'] + 2 * row['WS_TALUD_RECHTS_L']
+    l = row['geometry'].length
+    if l > 4:
+        dist1 = profile_dist
+        dist2 = profile_dist + 1
+    else:
+        dist1 = l * 0.2
+        dist2 = l * 0.4
+    if up_or_down.lower().startswith('down'):
+        dist1 = dist1 * -1
+        dist2 = dist2 * -1
+    point1 = row['geometry'].interpolate(dist1)
+    point2 = row['geometry'].interpolate(dist2)
+    baseline = LineString([point1, point2])
+    left = baseline.parallel_offset(width/2, 'left')
+    right = baseline.parallel_offset(width/2, 'right')
+    left_point = left.coords[0]
+    right_point = right.coords[-1]
+    profile_line = LineString([left_point, right_point])
+    return profile_line
 
 def insteek_hoogte_bovenstrooms(damo_gdf=None, obj=None):
     data = [bodem + 2 for bodem in damo_gdf['WS_BH_BOVENSTROOMS_L']]
@@ -252,6 +277,21 @@ def insteek_hoogte_benedenstrooms(damo_gdf=None, obj=None):
     data = [bodem + 2 for bodem in damo_gdf['WS_BH_BENEDENSTROOMS_L']]
     df = pd.Series(data=data, index=damo_gdf.index)
     return df
+
+def replace_crestlevel(damo_gdf=None, obj=None):
+    col_sp = 'rel_Streef P'
+    data = []
+    for i, row in damo_gdf.iterrows():
+        if not math.isnan(row[col_sp]):
+            data.append(row[col_sp] - 0.05)
+        else:
+            data.append(row['LAAGSTEDOORSTROOMHOOGTE'])
+    df = pd.Series(data=data, index=damo_gdf.index)
+    return df
+
+def rand_index(damo_gdf=None, obj=None):
+    return ["rand_"+str(i) for i in damo_gdf.index]
+
 
 if __name__ == '__main__':
     import sys

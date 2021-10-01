@@ -1,9 +1,9 @@
 {
     "object": "hydroobject",
     "source": {
-        "type": "FeatureServer",
-        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
-        "layer": "14",
+        "type": "Shapefile",
+        "path": "c:\\Users\\908367\\Box\\BH8519 WBD DHYDRO\\BH8519 WBD DHYDRO WIP\\04_GIS\\kopie_server\\Cat_A_Waterloop_Aa_of_Weerijs.shp",
+        "layer": "",
         "filter": "",
         "filter_type": "include",
         "query": ""
@@ -69,7 +69,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         },
         {
             "name": "ruwheidstypecode",

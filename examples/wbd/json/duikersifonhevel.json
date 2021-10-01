@@ -69,7 +69,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         },
         {
             "name": "indpeilregulpeilscheidendcode",
@@ -85,7 +85,7 @@
             "required": true,
             "src_col": "LENGTE",
             "func": "",
-            "default": 999
+            "default": 10
         },
         {
             "name": "hoogteopening",
@@ -93,7 +93,7 @@
             "required": true,
             "src_col": "HOOGTEOPENING",
             "func": "",
-            "default": 999
+            "default": 0.8
         },
         {
             "name": "breedteopening",
@@ -101,7 +101,7 @@
             "required": true,
             "src_col": "BREEDTEOPENING",
             "func": "",
-            "default": 999
+            "default": 0.8
         },
         {
             "name": "hoogtebinnenonderkantbenedenstrooms",
@@ -125,7 +125,7 @@
             "required": true,
             "src_col": "VORMKOKER",
             "func": "duikersifonhevel_vorm",
-            "default": 99
+            "default": 1
         },
         {
             "name": "soortkokervormigeconstructiecode",
@@ -149,7 +149,7 @@
             "required": true,
             "src_col": "",
             "func": "obj_soortmateriaal",
-            "default": 999
+            "default": 75
         },
         {
             "name": "intreeverlies",

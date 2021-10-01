@@ -10,7 +10,7 @@
   },
   "geometry": {
     "drop": false,
-    "func": ""
+    "func": "dwp_upstream"
   },
   "related_data": {
     "path": "",

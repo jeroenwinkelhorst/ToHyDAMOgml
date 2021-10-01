@@ -13,10 +13,12 @@
         "func": ""
     },
     "related_data": {
-        "path": "",
+        "type": "csv",
+        "path": "c:\\Users\\908367\\Box\\BH8519 WBD DHYDRO\\BH8519 WBD DHYDRO WIP\\00_Exchange\\Waterschap Brabantse Delta\\20210831_streefpeilen\\Streefpeil  LMX400 LMX800 TMX locaties v2.csv",
         "layer": "",
-        "mapping_col_src": "",
-        "mapping_col_rel": ""
+        "mapping_col_src": "code",
+        "mapping_col_rel": "code",
+        "replace_index_col": "CODE"
     },
     "index": {
         "name": "code",
@@ -69,7 +71,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         },
         {
             "name": "soortstuwcode",
@@ -116,7 +118,7 @@
             "type": "Double",
             "required": true,
             "src_col": "LAAGSTEDOORSTROOMHOOGTE",
-            "func": "",
+            "func": "replace_crestlevel",
             "default": 999
         },
         {
