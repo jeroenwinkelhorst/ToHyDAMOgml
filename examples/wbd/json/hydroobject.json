@@ -77,7 +77,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "1"
+            "default": "4"
         },
         {
             "name": "ruwheidswaardelaag",

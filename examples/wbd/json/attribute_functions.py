@@ -10,6 +10,7 @@ import pandas as pd
 from shapely.geometry import LineString
 from tohydamogml.domeinen_damo_1_4 import *
 from tohydamogml.config import *
+import logging
 
 
 # Columns in DAMO to search for id of related object
@@ -248,15 +249,19 @@ def dwp_downstream(damo_gdf=None, obj=None):
 def _make_dwp(row, up_or_down: str = 'upstream', profile_dist: float = 5):
     width = row['WS_BODEMBREEDTE_L'] + 2 * row['WS_TALUD_LINKS_L'] + 2 * row['WS_TALUD_RECHTS_L']
     l = row['geometry'].length
-    if l > 4:
+    logging.info(f'DWP maken: {up_or_down}, {row["CODE"]}, lengte: {l}, breedte: {width}')
+    if l > (profile_dist * 2 + 1):
         dist1 = profile_dist
-        dist2 = profile_dist + 1
+        dist2 = profile_dist - 1
     else:
         dist1 = l * 0.2
         dist2 = l * 0.4
     if up_or_down.lower().startswith('down'):
         dist1 = dist1 * -1
         dist2 = dist2 * -1
+    if math.isnan(width):
+        width = 6
+        logging.info(f"Normgeparametriseerdprofiel maken: {row['CODE']} er kon geen breedte gemaakt worden, geometrie wordt 6 meter breed")
     point1 = row['geometry'].interpolate(dist1)
     point2 = row['geometry'].interpolate(dist2)
     baseline = LineString([point1, point2])

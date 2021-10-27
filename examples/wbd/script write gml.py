@@ -30,7 +30,7 @@ path_json = os.path.join(r"json")
 attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
 
 # path to export gml files
-export_path = os.path.join("output", "modelverbetering_sept_2021")
+export_path = os.path.join("output", "modelverbetering_okt_2_2021")
 if not os.path.exists(export_path):
     os.makedirs(export_path)
 
@@ -40,15 +40,15 @@ mask = r"c:\local\TKI_WBD\aanvullende_data\Aa_of_Weerijs_v2.shp"
 
 # list with json objects to loop through
 json_objects = [
-    # os.path.join(path_json, "hydroobject.json"),
-    # os.path.join(path_json, "stuw.json"),
-    # os.path.join(path_json, "duikersifonhevel.json"),
+    os.path.join(path_json, "hydroobject.json"),
+    os.path.join(path_json, "stuw.json"),
+    os.path.join(path_json, "duikersifonhevel.json"),
     # os.path.join(path_json, "afsluitmiddel.json"),
     # os.path.join(path_json, "brug.json"),
     # os.path.join(path_json, "brug_dwp.json"),
-    # (os.path.join(path_json, "dwarsprofiel_bovenstrooms_legger.json"), os.path.join(path_json, "dwarsprofiel_benedenstrooms_legger.json")),
-    # os.path.join(path_json, "gemaal.json"),
-    # os.path.join(path_json, "pomp.json"),
+    # os.path.join(path_json, "dwarsprofiel_benedenstrooms_legger.json"),
+    os.path.join(path_json, "gemaal.json"),
+    os.path.join(path_json, "pomp.json"),
     # os.path.join(path_json, "sturing.json"),
     # os.path.join(path_json, "bodemval.json"),
     os.path.join(path_json, "randvoorwaarden.json"),
@@ -56,25 +56,24 @@ json_objects = [
 
 for json_object in json_objects:
     logging.info(f'Object path: {str(json_object)}')
-    if type(json_object) is tuple:
-        objs = []
-        for object in json_object:
-            if mask:
-                obj = HydamoObject(object, mask=mask, file_attribute_functions=attr_function, print_gml=False, outputfolder=folder)
-                objs.append(obj)
-            else:
-                obj = HydamoObject(object, file_attribute_functions=attr_function, print_gml=False, outputfolder=folder)
-                objs.append(obj)
-        obj = objs[1]
-        obj.gdf = obj.gdf.append(objs[0].gdf)
 
+    if mask:
+        obj = HydamoObject(json_object, mask=mask, file_attribute_functions=attr_function, outputfolder=folder)
     else:
-        if mask:
-            obj = HydamoObject(json_object, mask=mask, file_attribute_functions=attr_function, outputfolder=folder)
-        else:
-            obj = HydamoObject(json_object, file_attribute_functions=attr_function, outputfolder=folder)
+        obj = HydamoObject(json_object, file_attribute_functions=attr_function, outputfolder=folder)
     obj.validate_gml(write_error_log=True)
-
     obj.write_gml(export_path, ignore_errors=True, skip_validation=True)
+
+
+# Voor sets:
+objs = []
+for object in (os.path.join(path_json, "dwarsprofiel_benedenstrooms_legger.json"), os.path.join(path_json, "dwarsprofiel_bovenstrooms_legger.json")):
+    obj = HydamoObject(object, mask=mask, file_attribute_functions=attr_function, print_gml=False,
+                       outputfolder=folder)
+    objs.append(obj)
+obj = objs[1]
+obj.gdf = obj.gdf.append(objs[0].gdf)
+obj.validate_gml(write_error_log=True)
+obj.write_gml(export_path, ignore_errors=True, skip_validation=True)
 
 logging.info('Finished')

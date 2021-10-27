@@ -120,7 +120,7 @@
             "default": 999
         },
         {
-            "name": "vormkokercode",
+            "name": "vormcode",
             "type": "Integer",
             "required": true,
             "src_col": "VORMKOKER",
