@@ -62,7 +62,8 @@ def closest_geometry(row):
         return row['geometry']
 
 
-def find_closest(gdf_afsluitmiddel, gdf_stuw, gdf_duiker, output_folder, search_dist = 10, export_check=False):
+def find_closest(gdf_afsluitmiddel, gdf_stuw, gdf_duiker, output_folder, search_dist = 10,
+                 export_check=False, export_no_match=False):
     """
     This function calculates the nearest neighbor between afsluitmiddel/stuw & afsluitmiddel/duiker using KD Trees.
     WARNING: KD Trees can make mistakes in finding the NN, because the tree divides the spatial grid in clusters,
@@ -85,6 +86,7 @@ def find_closest(gdf_afsluitmiddel, gdf_stuw, gdf_duiker, output_folder, search_
     all_close = all_close.astype({'dist_closest': float})
     all_close['code_closest'] = all_close['code_closest'].replace({'0': None})
     all_close['dist_closest'] = all_close['dist_closest'].replace({'99': None})
+    all_close['CODE'] = all_close.index
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
@@ -97,10 +99,18 @@ def find_closest(gdf_afsluitmiddel, gdf_stuw, gdf_duiker, output_folder, search_
         df_match.to_file(os.path.join(output_folder, 'kunstwerk_match_check.shp'))
         df_match.to_file(os.path.join(output_folder, 'kunstwerk_match_check.gpkg'), driver='GPKG')
 
-    all_close = all_close.drop(columns=['geometry_line', 'geometry_point'])
-    all_close.to_file(os.path.join(output_folder, 'afsluitmiddel_koppeling.shp'))
-    all_close.to_file(os.path.join(output_folder, 'afsluitmiddel_koppeling.gpkg'), driver='GPKG')
-    return all_close
+    if export_no_match:
+        no_match = all_close.drop(columns=['geometry_line', 'geometry_point'])
+        no_match = no_match[no_match['code_closest'].isnull()]
+        no_match.to_file(os.path.join(output_folder, 'afsluitmiddel_zonder_koppeling.shp'))
+        no_match.to_file(os.path.join(output_folder, 'afsluitmiddel_zonder_koppeling.gpkg'), driver='GPKG')
+
+    dropcols = [col for col in all_close.columns if col.endswith('_point')] + [col for col in all_close.columns if col.endswith('_line')]
+    koppeling = all_close.drop(columns=['geometry_line', 'geometry_point', 'temp'] + dropcols)
+    koppeling = koppeling[~koppeling['code_closest'].isnull()]
+    koppeling.to_file(os.path.join(output_folder, 'afsluitmiddel_koppeling.shp'))
+    koppeling.to_file(os.path.join(output_folder, 'afsluitmiddel_koppeling.gpkg'), driver='GPKG')
+    return koppeling
 
 
 if __name__ == '__main__':
@@ -117,5 +127,6 @@ if __name__ == '__main__':
         gdf_duiker=gdf_duiker,
         output_folder='output/afsluitmiddel',
         search_dist=10,
-        export_check=True
+        export_check=True,
+        export_no_match=True
     )

@@ -35,7 +35,7 @@
             "name": "statusobjectcode",
             "type": "Integer",
             "required": false,
-            "src_col": "STATUSOBJECT",
+            "src_col": "",
             "func": "",
             "default": ""
         },

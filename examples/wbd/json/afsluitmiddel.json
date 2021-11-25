@@ -1,9 +1,8 @@
 {
     "object": "afsluitmiddel",
     "source": {
-        "type": "FeatureServer",
-        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
-        "layer": "0",
+        "type": "Shapefile",
+        "path": "c:\\Dev\\toHyDAMOgml\\examples\\wbd\\output\\afsluitmiddel\\afsluitmiddel_koppeling.gpkg",
         "filter": "",
         "filter_type": "include",
         "query": ""
@@ -35,9 +34,9 @@
             "name": "codegerelateerdobject",
             "type": "String",
             "required": true,
-            "src_col": "NAAM",
+            "src_col": "code_closest",
             "func": "",
-            "default": 999
+            "default": 99
         },
         {
             "name": "objectbegintijd",
@@ -125,7 +124,7 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         }
     ]
 }

@@ -1,4 +1,4 @@
-name: modelworkflow
+name: tohydamogml
 channels:
   - conda-forge
   - esri
@@ -6,12 +6,10 @@ dependencies:
     - python>3.8
     - gdal=2.4.1
     - pyproj>2
-    - geopandas
+    - geopandas>=0.10.0
     - jupyter
     - ipython
     - matplotlib
-    - fiona
-    - netcdf4
     - tqdm
     - scipy
     - pillow
@@ -19,6 +17,5 @@ dependencies:
     - fire
     - rasterio
     - rasterstats
-    - imod
     - arcgis
 

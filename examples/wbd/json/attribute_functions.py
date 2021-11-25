@@ -7,10 +7,11 @@ import math
 import numpy as np
 import geopandas as gpd
 import pandas as pd
-from shapely.geometry import LineString
+from shapely.geometry import LineString, Point
 from tohydamogml.domeinen_damo_1_4 import *
 from tohydamogml.config import *
 import logging
+import shapely
 
 
 # Columns in DAMO to search for id of related object
@@ -178,7 +179,7 @@ def _afsluitmiddel_soort(current_soort):
     Zoekt door SOORTAFSLUITMIDDEL naar de naam van de vorm, geeft attribuut waarde uit DAMO
     """
     if current_soort not in SOORTAFSLUITMIDDEL.values():
-        return 999
+        return 99
     for i, soort in SOORTAFSLUITMIDDEL.items():
         if soort == current_soort:
             return i
