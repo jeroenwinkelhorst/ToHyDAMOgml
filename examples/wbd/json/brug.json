@@ -1,9 +1,8 @@
 {
     "object": "brug",
     "source": {
-        "type": "FeatureServer",
-        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
-        "layer": "4",
+        "type": "Shapefile",
+        "path": "c:/Dev/toHyDAMOgml/examples/wbd/output/brug/bruggen.gpkg",
         "filter": "",
         "filter_type": "include",
         "query": ""
@@ -20,14 +19,14 @@
     },
     "index": {
         "name": "code",
-        "src_col": "CODE"
+        "src_col": "code"
     },
     "attributes": [
         {
             "name": "naam",
             "type": "String",
             "required": true,
-            "src_col": "NAAM",
+            "src_col": "code",
             "func": "",
             "default": "geen"
         },
@@ -43,7 +42,7 @@
             "name": "objectbegintijd",
             "type": "Date",
             "required": false,
-            "src_col": "OBJECTBEGINTIJD",
+            "src_col": "",
             "func": "",
             "default": ""
         },
@@ -51,7 +50,7 @@
             "name": "objecteindtijd",
             "type": "Date",
             "required": false,
-            "src_col": "OBJECTEINDTIJD",
+            "src_col": "",
             "func": "",
             "default": ""
         },
@@ -59,7 +58,7 @@
             "name": "hyperlink",
             "type": "String",
             "required": false,
-            "src_col": "HYPERLINK",
+            "src_col": "",
             "func": "",
             "default": ""
         },
@@ -69,20 +68,20 @@
             "required": true,
             "src_col": "",
             "func": "",
-            "default": "20"
+            "default": "3"
         },
         {
             "name": "hoogteonderzijde",
             "type": "Double",
             "required": true,
-            "src_col": "WS_HOOGTEONDERZIJDE_BOS",
+            "src_col": "hoogteonderzijde",
             "func": "",
             "default": 999
         },
         {
             "name": "hoogtebovenzijde",
             "type": "Double",
-            "required": true,
+            "required": false,
             "src_col": "",
             "func": "",
             "default": 999
@@ -91,7 +90,7 @@
             "name": "dwarsprofielcode",
             "type": "String",
             "required": true,
-            "src_col": "",
+            "src_col": "dwarsprofielcode",
             "func": "",
             "default": "999"
         },
@@ -99,7 +98,7 @@
             "name": "lengte",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "lengte",
             "func": "",
             "default": 999
         },
@@ -107,7 +106,7 @@
             "name": "ruwheidstypecode",
             "type": "Integer",
             "required": true,
-            "src_col": "",
+            "src_col": "ruwheidstypecode",
             "func": "",
             "default": 4
         },
@@ -115,15 +114,15 @@
             "name": "ruwheidswaarde",
             "type": "Double",
             "required": true,
-            "src_col": "",
-            "func": "obj_soortmateriaal",
+            "src_col": "RuwheidsWaarde",
+            "func": "",
             "default": 999
         },
         {
             "name": "intreeverlies",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "intreeverlies",
             "func": "",
             "default": 999
         },
@@ -131,7 +130,7 @@
             "name": "uittreeverlies",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "uittreeverlies",
             "func": "",
             "default": 999
         }

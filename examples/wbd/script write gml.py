@@ -30,7 +30,7 @@ path_json = os.path.join(r"json")
 attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
 
 # path to export gml files
-export_path = os.path.join("output", "modelverbetering_nov_11_2021")
+export_path = os.path.join("output", "modelverbetering_nov_29_2021")
 if not os.path.exists(export_path):
     os.makedirs(export_path)
 
@@ -44,11 +44,11 @@ json_objects = [
     os.path.join(path_json, "stuw.json"),
     os.path.join(path_json, "duikersifonhevel.json"),
     os.path.join(path_json, "afsluitmiddel.json"),
-    # os.path.join(path_json, "brug.json"),
-    # os.path.join(path_json, "brug_dwp.json"),
+    os.path.join(path_json, "brug.json"),
+    os.path.join(path_json, "brug_dwp.json"),
     os.path.join(path_json, "gemaal.json"),
     os.path.join(path_json, "pomp.json"),
-    os.path.join(path_json, "sturing.json"),
+    # os.path.join(path_json, "sturing.json"),
     # os.path.join(path_json, "bodemval.json"),
     os.path.join(path_json, "randvoorwaarden.json"),
     os.path.join(path_json, "profiel_legger.json")
