@@ -74,7 +74,7 @@
       "name": "codevolgnummer",
       "type": "Integer",
       "required": true,
-      "src_col": "codevolgnummer",
+      "src_col": "codeVolgnummer",
       "func": "",
       "default": 99
     },
@@ -82,15 +82,15 @@
       "name": "profielcode",
       "type": "String",
       "required": true,
-      "src_col": "code",
+      "src_col": "ProfielCode",
       "func": "",
-      "default": "dummy_code"
+      "default": "99"
     },
     {
       "name": "typeprofielcode",
       "type": "Integer",
       "required": true,
-      "src_col": "typeprofielcode",
+      "src_col": "TypeProfielCode",
       "func": "",
       "default": "3"
     },

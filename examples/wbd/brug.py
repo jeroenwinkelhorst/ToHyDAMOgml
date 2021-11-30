@@ -46,9 +46,9 @@ def make_bridge_profile(brug, legger):
     new_points = gpd.GeoDataFrame(crs='EPSG:28992')
     for i in range(len(list(xyz.coords))):
         new = gpd.GeoDataFrame(geometry=[Point(list(xyz.coords)[i])],
-                               data={'code': [f"{brug['CODE']}_dwp"],
+                               data={'code': [f"{brug['CODE']}_{i + 1}"],
                                      'codeVolgnummer': [i + 1],
-                                     'ProfielCode': [f'{brug["CODE"]}_{i + 1}'],
+                                     'ProfielCode': [f'{brug["CODE"]}'],
                                      'TypeProfielCode': [3],
                                      'RuwheidsTypeCode': [4],
                                      'RuwheidsWaardeLaag': [75],
@@ -58,7 +58,7 @@ def make_bridge_profile(brug, legger):
     brug_hydamo = gpd.GeoDataFrame(geometry=[brug.geometry],
                                    data={'code': brug['CODE'],
                                          'hoogteonderzijde': [brug['HOOGTEONDE']],
-                                         'dwarsprofielcode': [f"{brug['CODE']}_dwp"],
+                                         'dwarsprofielcode': [f"{brug['CODE']}"],
                                          'lengte': [brug['WS_DOORS_1']],
                                          'ruwheidstypecode': [4],
                                          'RuwheidsWaarde': [75],
@@ -81,12 +81,15 @@ if __name__ == '__main__':
     bridges = gpd.GeoDataFrame(crs='EPSG:28992')
     for i, brug in tqdm.tqdm(bruggen.iterrows(), total=len(bruggen)):
         logging.info(f'i = {i}')
-        profile, bridge = make_bridge_profile(brug, gdf_legger)
-        if profile is not None:
-            profiles = profiles.append(profile)
-            bridges = bridges.append(bridge)
+        if not brug.CODE in ['KBR02615']:
+            profile, bridge = make_bridge_profile(brug, gdf_legger)
+            if profile is not None:
+                profiles = profiles.append(profile)
+                bridges = bridges.append(bridge)
+            else:
+                logging.warning(f'Bridge not added due to lack of data. Code: {brug["CODE"]}')
         else:
-            logging.warning(f'Bridge not added due to lack of data. Code: {brug["CODE"]}')
+            logging.warning(f'Bridge manually skipped. Code: {brug["CODE"]}')
 
     profiles.to_file(r'output/brug/dwp_bruggen.gpkg', driver='GPKG')
     bridges.to_file(r'output/brug/bruggen.gpkg', driver='GPKG')
