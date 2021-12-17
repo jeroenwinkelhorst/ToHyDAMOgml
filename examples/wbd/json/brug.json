@@ -1,0 +1,138 @@
+{
+    "object": "brug",
+    "source": {
+        "type": "Shapefile",
+        "path": "c:/Dev/toHyDAMOgml/examples/wbd/output/brug/bruggen.gpkg",
+        "filter": "",
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": false,
+        "func": ""
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "code"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": true,
+            "src_col": "code",
+            "func": "",
+            "default": "geen"
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "3"
+        },
+        {
+            "name": "hoogteonderzijde",
+            "type": "Double",
+            "required": true,
+            "src_col": "hoogteonderzijde",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogtebovenzijde",
+            "type": "Double",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "dwarsprofielcode",
+            "type": "String",
+            "required": true,
+            "src_col": "dwarsprofielcode",
+            "func": "",
+            "default": "999"
+        },
+        {
+            "name": "lengte",
+            "type": "Double",
+            "required": true,
+            "src_col": "lengte",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "ruwheidstypecode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "ruwheidstypecode",
+            "func": "",
+            "default": 4
+        },
+        {
+            "name": "ruwheidswaarde",
+            "type": "Double",
+            "required": true,
+            "src_col": "RuwheidsWaarde",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "intreeverlies",
+            "type": "Double",
+            "required": true,
+            "src_col": "intreeverlies",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "uittreeverlies",
+            "type": "Double",
+            "required": true,
+            "src_col": "uittreeverlies",
+            "func": "",
+            "default": 999
+        }
+    ]
+}

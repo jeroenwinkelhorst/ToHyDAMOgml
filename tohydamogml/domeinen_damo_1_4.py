@@ -41,3 +41,63 @@ MATERIAALKUNSTWERK = {
     30: "klei",
     31: "lokale bodemsoort"
 }
+
+TYPESTUW = {
+    1: "schotbalkstuw",
+    2: "stuw met schuif",
+    3: "stuw met klep",
+    4: "segmentstuw",
+    5: "cascadestuw",
+    6: "hevelstuw",
+    7: "meetstuw",
+    8: "meetschot",
+    9: "stuw met contra-gewicht",
+    10: "inlaat- en/of aflaatstuw",
+    11: "overlaat",
+    12: "drijverstuw",
+    13: "trommelstuw",
+    20: "gronddamstuw",
+    21: "stuwbak",
+    22: "tuimel- of kantelstuw",
+    23: "balgstuw",
+    24: "brievenbusstuw",
+    25: "knijpstuw",
+    26: "conserveringstuw",
+    99: "onbekend"
+}
+
+TYPEREGELBAARHEID = {
+    1: "niet regelbaar (vast)",
+    2: "regelbaar, niet automatisch",
+    3: "regelbaar, automatisch",
+    4: "handmatig",
+    99: "overig",
+}
+
+VORMKOKER = {
+    1: "Rond",
+    2: "Driehoek",
+    3: "Rechthoekig",
+    4: "Eivormig",
+    5: "Ellipsvormig",
+    6: "Paraboolvormig",
+    7: "Trapeziumvormig",
+    8: "Heulprofiel",
+    9: "Muilprofiel",
+    10: "Langwerpig",
+    11: "Scherp",
+    99: "Onbekend",
+}
+
+SOORTAFSLUITMIDDEL = {
+    1: "deur",
+    2: "schotbalk sponning",
+    3: "zandzakken",
+    4: "schuif",
+    5: "terugslagklep",
+    6: "tolklep",
+    97: "niet afsluitbaar",
+    98: "overig",
+    99: "onbekend"
+}
+

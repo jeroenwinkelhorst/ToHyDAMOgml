@@ -47,7 +47,7 @@ setup(
     'shapely',
     'pyproj',
     'rtree',
-    'lxml',
+    # 'lxml',
     'geopandas'
     ],
 

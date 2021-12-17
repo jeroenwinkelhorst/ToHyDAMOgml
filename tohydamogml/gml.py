@@ -29,7 +29,7 @@ class Gml:
 
     """
 
-    def __init__(self, gdf, objectname):
+    def __init__(self, gdf, objectname, outputfolder=None):
         # Declare variables
         self.QNAME = {etree.QName(XSI_NAMESPACE, "schemaLocation"): XSD}
         self.NHI = "{%s}" % NHI_NAMESPACE
@@ -46,12 +46,12 @@ class Gml:
         elif type(self.gdf.crs) == dict:
             if 'init' in self.gdf.crs.keys():
                 self.crs = self.gdf.crs['init']
-        elif type(self.gdf.crs) == pyproj.crs.CRS:
-            self.crs = self.gdf.crs.srs
+        # elif type(self.gdf.crs) == pyproj.crs.CRS:
+        #     self.crs = self.gdf.crs.srs
         else:
             self.crs = self.gdf.crs
         self._xsd_schema = None
-        self._output_folder = None
+        self._output_folder = outputfolder
 
         # Generate GML
         self._generate()
@@ -227,13 +227,13 @@ class Gml:
 
         if 'geometry' in self.gdf.columns:
             gdf = gpd.GeoDataFrame(data={"code": code, "error": msg}, index=code, geometry=geom, crs=self.crs)
-            filename = os.path.join("log", folder, str(self.objectname) + "_XSD_errorlog.shp")
+            filename = os.path.join(folder, str(self.objectname) + "_XSD_errorlog.shp")
             gdf.to_file(filename)
             print(f"Error log written to {filename}")
         else:
             # Write log to csv
             df = pd.DataFrame(data={"code": code, "error": msg}, index=code)
-            filename = os.path.join("log", folder, str(self.objectname) + "_XSD_errorlog.csv")
+            filename = os.path.join(folder, str(self.objectname) + "_XSD_errorlog.csv")
             df.to_csv(filename)
             print(f"Error log written to {filename}")
 
@@ -241,11 +241,8 @@ class Gml:
     def output_folder(self):
         """Make dir is not exist"""
         if self._output_folder is None:
-            folder = datetime.today().strftime("%Y%m%d_%H%M")
-            try:
-                os.stat(os.path.join("log", folder))
-            except:
-                os.makedirs(os.path.join(os.getcwd(), "log", folder))
+            folder = os.path.join('log', datetime.today().strftime("%Y%m%d_%H%M"))
+            os.makedirs(folder)
             self._output_folder = folder
         return self._output_folder
 
@@ -253,12 +250,12 @@ class Gml:
         # Create geodateframe and write to shape
 
         if 'geometry' in self.gdf.columns:
-            self.gdf.to_file(os.path.join("log", self.output_folder, str(self.objectname) + ".gpkg"), driver="GPKG")
-            print("Geopackage exported to", os.path.join("log", self.output_folder, str(self.objectname) + ".gpkg"))
+            self.gdf.to_file(os.path.join(self.output_folder, str(self.objectname) + ".gpkg"), driver="GPKG")
+            print("Geopackage exported to", os.path.join(self.output_folder, str(self.objectname) + ".gpkg"))
         else:
             # Write log to csv
-            self.gdf.to_csv(os.path.join("log", self.output_folder, str(self.objectname) + ".csv"))
-            print("Table exported to", os.path.join("log", self.output_folder, str(self.objectname) + ".csv"))
+            self.gdf.to_csv(os.path.join(self.output_folder, str(self.objectname) + ".csv"))
+            print("Table exported to", os.path.join(self.output_folder, str(self.objectname) + ".csv"))
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ import pandas as pd
 import fiona
 from shapely.geometry import LineString
 from tohydamogml.domeinen_damo_1_4 import *
-from tohydamogml.read_filegdb import read_filegdb
+from tohydamogml.read_database import read_filegdb
 
 # Columns in DAMO to search for id of related object
 DM_COL_CODEGERELATEERD_OBJECT = [

@@ -1,0 +1,97 @@
+{
+  "object": "sturing",
+  "source": {
+    "path": "00_Brondata\\gdb\\DAMO_dummy.gdb",
+    "layer": "Sturing",
+    "filter": "",
+    "filter_type": "",
+    "query":""
+  },
+  "geometry": {
+      "drop": false,
+      "func": ""
+  },
+  "related_data": {
+    "path": "",
+    "layer": "",
+    "mapping_col_src": "",
+    "mapping_col_rel": "",
+    "replace_index_col": ""
+  },
+  "index": {
+      "name": "code",
+      "src_col": "CODE"
+    },
+  "attributes": [
+    { "name": "codegerelateerdobject",
+      "type": "String",
+      "required": false,
+      "src_col": "CODEGERELATEERDOBJECT",
+      "func": "",
+      "default": ""
+    },
+    { "name": "complexesturingcode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "COMPLEXESTURINGSCODE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "geldigbegintijd",
+      "type": "Date",
+      "required": true,
+      "src_col": "GELDIGBEGINTIJD",
+      "func": "",
+      "default": ""
+    },
+    { "name": "geldigeindtijd",
+      "type": "Date",
+      "required": true,
+      "src_col": "GELDIGEINDTIJD",
+      "func": "",
+      "default": ""
+    },
+    { "name": "stuurvariabelecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "STUURVARIABELECODE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "doelvariabelecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "DOELVARIABELECODE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "streefwaarde",
+      "type": "Double",
+      "required": true,
+      "src_col": "STREEFWAARDE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "bovenmarge",
+      "type": "Double",
+      "required": true,
+      "src_col": "BOVENMARGE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "ondermarge",
+      "type": "Double",
+      "required": true,
+      "src_col": "ONDERMARGE",
+      "func": "",
+      "default": ""
+    },
+    { "name": "sturingtypecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "STURINGSTYPECODE",
+      "func": "",
+      "default": ""
+    }
+  ]
+}

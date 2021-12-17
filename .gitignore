@@ -106,10 +106,10 @@ ENV/
 # project
 *.tif
 *.tif.aux.xml
-*.shp
-*.dbf
-*.shx
-*.prj
+#*.shp
+#*.dbf
+#*.shx
+#*.prj
 *.lyr
 *.qpj
 *.cpg
@@ -120,6 +120,7 @@ ENV/
 *.pptx
 *.html
 *.lit
+*.lock
 /playground
 /log
 /output
@@ -128,3 +129,14 @@ ENV/
 /examples/wvv_notebook/output
 /examples/wvv_script/log
 /examples/wvv_script/output
+
+# exception
+!/examples/wvv_notebook/shp/OW.cpg
+!/examples/wvv_notebook/shp/OW.dbf
+!/examples/wvv_notebook/shp/OW.prj
+!/examples/wvv_notebook/shp/OW.shp
+!/examples/wvv_notebook/shp/OW.shx
+examples/wbd/log/20210901_1343/stuw_XSD_errorlog.dbf
+examples/wbd/log/
+examples/wbd/output_sept_2021/
+examples/wbd/output/
