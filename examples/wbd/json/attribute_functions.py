@@ -50,7 +50,7 @@ def _stuw_code(current_name=None):
     Zoekt door TYPESTUW naar de naam van het stuwtype, geeft attribuut waarde uit DAMO
     """
     if current_name not in TYPESTUW.values():
-        return 999
+        return 99
     for i, name in TYPESTUW.items():
         if name == current_name:
             return i

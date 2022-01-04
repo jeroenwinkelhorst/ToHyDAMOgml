@@ -11,7 +11,7 @@
     "drop": false,
     "func": ""
   },
-  "related_data": {
+    "related_data": {
     "path": "",
     "layer": "",
     "mapping_col_src": "",
@@ -22,14 +22,6 @@
     "src_col": "code"
   },
   "attributes": [
-    {
-      "name": "naam",
-      "type": "String",
-      "required": true,
-      "src_col": "NAAM",
-      "func": "",
-      "default": "geen"
-    },
     {
       "name": "statusobjectcode",
       "type": "Integer",

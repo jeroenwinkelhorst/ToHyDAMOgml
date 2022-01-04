@@ -8,6 +8,8 @@ import geopandas as gpd
 import pandas as pd
 from tohydamogml.config import COLNAME_OID
 from shapely.geometry import Point, LineString
+import pyproj
+import warnings
 
 
 def read_featureserver(url, layer_index):
@@ -29,8 +31,16 @@ def read_featureserver(url, layer_index):
         try:
             geojson = query_all.to_geojson
             gdf = gpd.read_file(geojson)
-            if gdf.crs['init'] != wkid:
-                gdf.crs = 'EPSG:' + str(wkid)
+            if type(gdf.crs) == pyproj.crs.crs.CRS:
+                if not gdf.crs.srs.endswith(str(wkid)):
+                    gdf = gdf.set_crs(wkid, allow_override=True)
+            elif gdf.crs is not None:
+                if gdf.crs['init'] != wkid:
+                    gdf = gdf.to_crs(epsg=wkid)
+                else:
+                    raise warnings.warn("Check CRS")
+            else:
+                gdf.crs = f'EPSG:{wkid}'
         except:
             # For some reason, the geojson created from the esri dataset doesn't always get read by geopandas/fiona.
             # If the geojson method fails, a manual operation is used to create the geodataframe anyway.
