@@ -30,7 +30,7 @@ setup(
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Topic :: RHDHV :: Water Management',
+        'Topic :: Scientific/Engineering :: Hydrology',
         'License :: Other/Proprietary License',
         'Programming Language :: Python :: 3',
     ],
