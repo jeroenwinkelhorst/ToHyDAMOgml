@@ -1,7 +1,8 @@
 ## 1. Data and method description
 Python package to generate GML files in NHI HyDAMO format from a DAMO database. This can be used as input for the NHI HyDAMO database or D-Hydamo modelgenerator.
 
-This toolbox is developed for Waterschap Vallei en Veluwe by Royal HaskoningDHV.
+This toolbox is developed for Waterschap Vallei en Veluwe by Royal HaskoningDHV. 
+It has been further improved for Waterschap Brabantse Delta. 
 
 Free software: MIT License
 
@@ -13,9 +14,9 @@ Execute the following commands:
 
 ```
 conda env create -f environment.yml
-activate modelworkflow
+activate modelgenerator
 ```
-The new python environment `modelworkflow` is created. Activate this environment each time you want to use the `tohydamogml` tool.
+The new python environment `modelgenerator` is created. Activate this environment each time you want to use the `tohydamogml` tool.
 
 You can use the python package by adding the root folder of the package to the system path. In your python script you can add the folder with the following command:
 
@@ -38,4 +39,4 @@ Let's start!
 
 ## 4. Contributers
 * jeroen.winkelhorst[@]rhdhv.com
-
+* lisa.weijers[@]rhdhv.com

@@ -16,6 +16,7 @@ setup(
     version=tohydamogml.__version__,
     description=tohydamogml.__description__,
     long_description=long_description,
+    long_description_content_type='text/markdown',
 
     # The project's main homepage.
     url=tohydamogml.__url__,
@@ -47,8 +48,9 @@ setup(
     'shapely',
     'pyproj',
     'rtree',
-    # 'lxml',
-    'geopandas'
+    'lxml',
+    'geopandas',
+    'arcgis'
     ],
 
     # You can install these using the following syntax, for example:
@@ -60,9 +62,9 @@ setup(
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
-    # package_data={
-    #     'sobek2': ['sobek2/ls_language_dictionary.csv', ],
-    # },
+    package_data={
+        '': ['examples/*'],
+    },
     # include_package_data=True,
 
     # Although 'package_data' is the preferred approach, in some case you may
