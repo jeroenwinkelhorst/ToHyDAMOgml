@@ -64,6 +64,7 @@ setup(
     # have to be included in MANIFEST.in as well.
     package_data={
         '': ['examples/*'],
+        'xsd': ['scr/xsd/*']
     },
     # include_package_data=True,
 

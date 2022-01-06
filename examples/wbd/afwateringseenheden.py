@@ -6,12 +6,12 @@ import tqdm
 import pandas as pd
 
 # Inlezen input en klaarzetten output map
-output_map = Path(r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\04_GIS\Lateralen')
+output_map = Path(r'output/lateralen')
+output_map.mkdir(parents=True, exist_ok=True)
 
-exchange = Path(r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\00_Exchange\Waterschap Brabantse Delta')
-afwat_gdf = gpd.read_file(exchange/'20211119_Afwateringseenheden'/'afwateringsgebieden_BrabantseDelta_02_11_2021_def.shp')
-water_gdf = gpd.read_file(r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\04_GIS\kopie_server\Cat_A_Waterloop_Aa_of_Weerijs.shp')
-specifieke_afvoer_fn = exchange/'20220105_Specifieke_Afvoeren'/'l_s_ha.tif'
+afwat_gdf = gpd.read_file(r'../input/afwateringsgebieden_BrabantseDelta_02_11_2021_def.shp')
+water_gdf = gpd.read_file(r'../input/Cat_A_Waterloop_Aa_of_Weerijs.shp')
+specifieke_afvoer_fn = r'../input/l_s_ha.tif'
 
 # Selectie maken van de afwateringseenheden die overlappen met het netwerk van het projectgebied
 water_poly = water_gdf.copy()

@@ -13,7 +13,7 @@ import warnings
 
 
 def read_featureserver(url, layer_index):
-    """Read featureservice with fiona to get original objectid. Return geopandas dataframe or pandas dataframe"""
+    """Read featureservice with arcgis. Query the featureset to return everything. Return geopandas dataframe or pandas dataframe"""
     collection = FeatureLayerCollection(url)
     wkid = collection.properties['spatialReference']['wkid']
     featureset = collection.layers[int(layer_index)]

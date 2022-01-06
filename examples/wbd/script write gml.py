@@ -1,7 +1,4 @@
 """
-
-
-
 Make sure the working directory is the folder where this file is located
 """
 import sys
@@ -9,14 +6,14 @@ import os
 import logging
 from codecs import ignore_errors
 from datetime import datetime
-
+import geopandas as gpd
+from pathlib import Path
 
 # Make folder for logging
-folder = os.path.join('log', datetime.today().strftime("%Y%m%d_%H%M"))
-if not os.path.exists(folder):
-    os.makedirs(folder)
+folder = Path.cwd()/'log'/datetime.today().strftime("%Y%m%d_%H%M")
+folder.mkdir(parents=True, exist_ok=True)
 
-logging.basicConfig(filename=os.path.join(folder, 'logging.log'), level=logging.INFO)
+logging.basicConfig(filename=folder/'logging.log', level=logging.INFO)
 logging.info('Started')
 
 
@@ -31,7 +28,7 @@ path_json = os.path.join(r"json")
 attr_function = os.path.join(os.getcwd(), path_json, "attribute_functions.py")
 
 # path to export gml files
-export_path = os.path.join("output", "GML januari")
+export_path = os.path.join("output")
 if not os.path.exists(export_path):
     os.makedirs(export_path)
 
@@ -77,7 +74,6 @@ obj = HydamoObject(json_object, mask=mask, file_attribute_functions=attr_functio
 obj.validate_gml(write_error_log=True)
 obj.write_gml(export_path, ignore_errors=True, skip_validation=True, suffix='_brug')
 
-import geopandas as gpd
 gdf_prof = gpd.read_file(os.path.join(export_path, 'dwarsprofiel.gml'))
 gdf_dwp = gpd.read_file(os.path.join(export_path, 'dwarsprofiel_brug.gml'))
 gdf_both = gdf_prof.append(gdf_dwp)

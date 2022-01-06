@@ -1,6 +1,5 @@
 # https://gis.stackexchange.com/questions/222315/geopandas-find-nearest-point-in-other-dataframe
 
-
 from tohydamogml.read_database import read_featureserver
 from scipy.spatial import cKDTree
 from shapely.geometry import Point, LineString
@@ -86,7 +85,7 @@ def find_closest(gdf_afsluitmiddel, gdf_stuw, gdf_duiker, output_folder, search_
     all_close = all_close.astype({'dist_closest': float})
     all_close['code_closest'] = all_close['code_closest'].replace({'0': None})
     all_close['dist_closest'] = all_close['dist_closest'].replace({'99': None})
-    all_close['CODE'] = all_close.index
+    all_close['code_index'] = all_close.index
 
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
