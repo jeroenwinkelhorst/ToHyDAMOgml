@@ -44,7 +44,7 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-    'fiona',
+    # 'fiona', # Temporarily turned off due to GDAL compication when pip installs dependancies
     'shapely',
     'pyproj',
     'rtree',
@@ -63,10 +63,9 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        '': ['examples/*'],
-        'xsd': ['scr/xsd/*']
+        '': ['examples/*', 'src/*', 'src/xsd/*', 'src/xsd/*.xsd']
     },
-    # include_package_data=True,
+    include_package_data=True,
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:

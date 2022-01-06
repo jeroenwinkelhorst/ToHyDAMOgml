@@ -17,6 +17,7 @@ import pandas as pd
 import geopandas as gpd
 import pyproj
 from lxml import etree
+import pkg_resources
 
 from tohydamogml.config import XSI_NAMESPACE, NHI_NAMESPACE, GML_NAMESPACE, XSD, XSD_PATH, DEFAULT_CRS
 
@@ -148,7 +149,8 @@ class Gml:
         """Read XSD schema"""
         if self._xsd_schema is None:
             xsd_tree = etree.parse(
-                os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src", XSD_PATH)))
+                pkg_resources.resouce_stream(__name__, f'src/xsd/{XSD_PATH}')
+                # os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src", XSD_PATH)))
             self._xsd_schema = etree.XMLSchema(xsd_tree)
         return self._xsd_schema
 
