@@ -38,6 +38,7 @@ setup(
     keywords=tohydamogml.__keywords__,
 
     packages=find_packages(),
+    # package_dir={"": "tohydamogml"},
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
@@ -63,7 +64,10 @@ setup(
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
     package_data={
-        '': ['src/xsd/*', 'src/xsd/*.xsd']
+        'tohydamogml': ['xsd/*.xsd'],
+        'src': ['xsd/*', 'xsd/*.xsd', '*.xsd'],
+        'examples': ['scripts/*'],
+        '': ['*.xsd']
     },
     include_package_data=True,
 
