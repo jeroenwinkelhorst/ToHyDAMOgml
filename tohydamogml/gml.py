@@ -148,8 +148,7 @@ class Gml:
     def xsd_schema(self):
         """Read XSD schema"""
         if self._xsd_schema is None:
-            xsd_tree = etree.parse(
-                pkg_resources.resouce_stream(__name__, f'src/xsd/{XSD_PATH}')
+            xsd_tree = etree.parse(pkg_resources.resource_stream(__name__, f'../{XSD_PATH}'))
                 # os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src", XSD_PATH)))
             self._xsd_schema = etree.XMLSchema(xsd_tree)
         return self._xsd_schema
