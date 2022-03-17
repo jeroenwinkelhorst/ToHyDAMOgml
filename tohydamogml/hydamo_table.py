@@ -16,8 +16,8 @@ import geopandas as gpd
 import pandas as pd
 from shapely import ops
 from tohydamogml.gml import Gml
-from tohydamogml.read_filegdb import read_filegdb
-
+from tohydamogml.read_database import read_filegdb, read_featureserver
+import logging
 
 
 class HydamoObject:
@@ -25,7 +25,8 @@ class HydamoObject:
     Creates geopandas dataframe for a HyDAMO object with all the required attributes
     """
 
-    def __init__(self, path_json: str, print_gml=True, mask: str = None, file_attribute_functions=None):
+    def __init__(self, path_json: str, print_gml=True, mask: str = None, file_attribute_functions=None,
+                 outputfolder=None):
         """
 
         :param path_json: str, path to JSON input file
@@ -52,6 +53,7 @@ class HydamoObject:
         self.attr_dummy = {}
         self._gml = None
         self.mask = None
+        self._outputfolder = outputfolder
         self._read_attributes_to_dicts(obj)
 
         if mask:
@@ -71,21 +73,53 @@ class HydamoObject:
         Create gdf for hydroobject
         """
         # Load Data
-        gdf_src = self._create_gdf(obj["source"]["layer"], obj["source"]["path"], obj["index"]['name'],
-                                   filter_dict=obj["source"]["filter"], filter_type=obj["source"]["filter_type"],
-                                   index_col_src=obj["index"]["src_col"], mask=mask, query=obj["source"]["query"])
+        if obj['source'].get('type') == 'FeatureServer':
+            gdf_src = self._create_gdf_from_featureserver(url=obj['source']['path'],
+                                                          layer=obj['source']['layer'],
+                                                          index_name=obj["index"]['name'],
+                                                          filter_dict=obj["source"]["filter"],
+                                                          filter_type=obj["source"]["filter_type"],
+                                                          index_col_src=obj["index"]["src_col"],
+                                                          mask=mask,
+                                                          query=obj["source"]["query"]
+                                                          )
+        elif obj['source'].get('type') == 'Shapefile':
+            gdf_src = self._create_gdf_from_shapefile(path=obj['source']['path'],
+                                                      index_name=obj["index"]['name'],
+                                                      filter_dict=obj["source"]["filter"],
+                                                      filter_type=obj["source"]["filter_type"],
+                                                      index_col_src=obj["index"]["src_col"],
+                                                      mask=mask,
+                                                      query=obj["source"]["query"])
+        else:
+            gdf_src = self._create_gdf_from_gdb(layer=obj["source"]["layer"],
+                                                filegdb=obj["source"]["path"],
+                                                index_name=obj["index"]['name'],
+                                                filter_dict=obj["source"]["filter"],
+                                                filter_type=obj["source"]["filter_type"],
+                                                index_col_src=obj["index"]["src_col"],
+                                                mask=mask,
+                                                query=obj["source"]["query"])
 
         # join related table
         if obj['related_data']["path"]:
-            gdf_src = self._add_related(gdf_src, rel_path=obj['related_data']['path'],
-                                        rel_layer=obj['related_data']['layer'],
-                                        mapping_col_src=obj['related_data']['mapping_col_src'],
-                                        mapping_col_rel=obj['related_data']['mapping_col_rel'],
-                                        replace_index_col=obj['related_data']['replace_index_col'],
-                                        index_name=obj["index"]['name'])
+            if obj['related_data'].get('type') == 'csv':
+                gdf_src = self._add_related_csv(gdf_src, csv_path=obj['related_data']['path'],
+                                                mapping_col_src=obj['related_data']['mapping_col_src'],
+                                                mapping_col_rel=obj['related_data']['mapping_col_rel'],
+                                                replace_index_col=obj['related_data']['replace_index_col'],
+                                                index_name=obj["index"]['name'])
+            else:
+                gdf_src = self._add_related_gdf(gdf_src, rel_path=obj['related_data']['path'],
+                                                rel_layer=obj['related_data']['layer'],
+                                                mapping_col_src=obj['related_data']['mapping_col_src'],
+                                                mapping_col_rel=obj['related_data']['mapping_col_rel'],
+                                                replace_index_col=obj['related_data']['replace_index_col'],
+                                                index_name=obj["index"]['name'])
 
         self.gdf = self._create_empty_gdf(gdf_src)
 
+        # Add attributes
         for attr in self.obj['attributes']:
             self._add_attribute(attr, gdf_src)
 
@@ -93,6 +127,12 @@ class HydamoObject:
         if self.obj["geometry"]["func"]:
             func = eval("self.ws." + self.obj["geometry"]["func"])
             self.gdf["geometry"] = pd.DataFrame(data={"geometry": func(damo_gdf=gdf_src, obj=self.obj)})
+
+        # Custom index operations
+        if "func" in self.obj["index"].keys():
+            func = eval("self.ws." + self.obj["index"]["func"])
+            ind = pd.Index(data=func(damo_gdf=gdf_src, obj=self.obj), name='code')
+            self.gdf.index = ind
 
         if self.obj["geometry"]["drop"] is True:
             self.gdf = self.gdf.drop(['geometry'], axis=1)
@@ -116,13 +156,25 @@ class HydamoObject:
         else:
             print("Attribute ", attr, " not added")
 
-    def _add_related(self, gdf_src, rel_path, rel_layer, mapping_col_src, mapping_col_rel, replace_index_col=None,
-                     index_name=None, prefix="rel_"):
+    def _add_related_gdf(self, gdf_src, rel_path, rel_layer, mapping_col_src, mapping_col_rel, replace_index_col=None,
+                         index_name=None, prefix="rel_"):
         # env.workspace = rel_path
         gdf_rel = read_filegdb(rel_path, rel_layer)
         gdf_rel = gdf_rel.add_prefix(prefix)
 
-        gdf_src = gdf_src.merge(gdf_rel, how="left", left_on=mapping_col_src, right_on=mapping_col_rel)
+        gdf_src = gdf_src.merge(gdf_rel, how="left", left_on=mapping_col_src, right_on=prefix+mapping_col_rel)
+        if replace_index_col:
+            gdf_src.set_index(replace_index_col, append=False, inplace=True)
+            gdf_src.index.names = [index_name]
+        return gdf_src[gdf_src.index.notnull()]
+
+    def _add_related_csv(self, gdf_src, csv_path, mapping_col_src, mapping_col_rel, replace_index_col=None,
+                         index_name=None, prefix="rel_"):
+        # env.workspace = rel_path
+        gdf_rel = pd.read_csv(csv_path)
+        gdf_rel = gdf_rel.add_prefix(prefix)
+
+        gdf_src = gdf_src.merge(gdf_rel, how="left", left_on=mapping_col_src, right_on=prefix+mapping_col_rel)
         if replace_index_col:
             gdf_src.set_index(replace_index_col, append=False, inplace=True)
             gdf_src.index.names = [index_name]
@@ -134,7 +186,7 @@ class HydamoObject:
         Get GML
         """
         if self._gml is None:
-            self._gml = Gml(self.gdf.reset_index(), self.objectname)
+            self._gml = Gml(self.gdf.reset_index(), self.objectname, outputfolder=self._outputfolder)
         return self._gml
 
     def print_gml(self):
@@ -155,8 +207,8 @@ class HydamoObject:
         """
         return self.gml.validate(write_error_log)
 
-    def _create_gdf(self, layer: str, filegdb: str, index_name: str, filter_dict: dict = None, filter_type: str = None,
-                    index_col_src: str = None, mask=None, query=None):
+    def _create_gdf_from_gdb(self, layer: str, filegdb: str, index_name: str, filter_dict: dict = None,
+                             filter_type: str = None, index_col_src: str = None, mask=None, query=None):
         """
         Create geodataframe from database. Optionally filter rows
 
@@ -171,6 +223,72 @@ class HydamoObject:
         """
 
         gdf = read_filegdb(filegdb, layer)
+
+        if mask and (gdf.geometry[0] is not None):
+            gdf = gdf[gdf.intersects(mask)]
+        if filter_dict:
+            gdf = self._filter_gdf(gdf, filter_dict, filter_type)
+        if query:
+            gdf = gdf.query(query, engine="python")
+
+        gdf.reset_index(inplace=True)
+        gdf.set_index(index_col_src, inplace=True, drop=False)
+        gdf.index.names = [index_name]
+
+        # remove objects without a unique code
+        gdf = gdf[gdf.index.notnull()]
+
+        return gdf
+
+    def _create_gdf_from_featureserver(self, url: str, layer: str, index_name: str, filter_dict: dict = None,
+                                filter_type: str = None, index_col_src: str = None, mask=None, query=None):
+        """
+        Create geodataframe from arcgis featureserver. Optionally filter rows
+
+        :param url: path to the url of the featureserver. Typically looks like:
+                    "https://maps.XX.com/arcgis/rest/services/XX/XX/FeatureServer"
+        :param layer: name/index of the layer within the Feature Server
+        :param index_name: new name of the index column
+        :param filter_dict: dict, {"column_name": [values] }
+        :param filter_type: str, include or exclude
+        :param index_col_src: column name of the index
+        :param mask: shapely polygon. Only the features that intersect the polygon will be loaded
+        :return: geodataframe
+        """
+
+        gdf = read_featureserver(url, layer)
+
+        if mask and (gdf.geometry[0] is not None):
+            gdf = gdf[gdf.intersects(mask)]
+        if filter_dict:
+            gdf = self._filter_gdf(gdf, filter_dict, filter_type)
+        if query:
+            gdf = gdf.query(query, engine="python")
+
+        gdf.reset_index(inplace=True)
+        gdf.set_index(index_col_src, inplace=True, drop=False)
+        gdf.index.names = [index_name]
+
+        # remove objects without a unique code
+        gdf = gdf[gdf.index.notnull()]
+
+        return gdf
+
+    def _create_gdf_from_shapefile(self, path: str, index_name: str, filter_dict: dict = None,
+                                filter_type: str = None, index_col_src: str = None, mask=None, query=None):
+        """
+        Create geodataframe from local shapefile (or gpkg!). Optionally filter rows
+
+        :param path: path to the shapefile. Any file type that can be read by gpd.read_file() will work here.
+        :param index_name: new name of the index column
+        :param filter_dict: dict, {"column_name": [values] }
+        :param filter_type: str, include or exclude
+        :param index_col_src: column name of the index
+        :param mask: shapely polygon. Only the features that intersect the polygon will be loaded
+        :return: geodataframe
+        """
+
+        gdf = gpd.read_file(path)
 
         if mask and (gdf.geometry[0] is not None):
             gdf = gdf[gdf.intersects(mask)]
@@ -256,9 +374,11 @@ class HydamoObject:
         """
         if func is not None:
             tmp_attr = pd.DataFrame(data={attr: func(damo_gdf=src_gdf, obj=self.obj)})
-        else:
+        elif self.attr_damo[attr] in src_gdf.columns:
             tmp_attr = pd.DataFrame(src_gdf[self.attr_damo[attr]])
             tmp_attr.rename(columns={self.attr_damo[attr]: attr}, inplace=True)
+        else:
+            tmp_attr = pd.DataFrame(data=None, index=src_gdf.index, columns=[attr])
 
         tmp_attr = self._fill_na_if_required(attr, tmp_attr)
         tmp_attr = self._set_datatype(attr, tmp_attr)
@@ -288,6 +408,8 @@ class HydamoObject:
     def _fill_na_if_required(self, attr, tmp_attr):
         """Fill NA values if attribute is required"""
         if self.attr_required[attr]:
+            logging.info(f'Default waarde van {attr} ({self.attr_dummy[attr]}) aangenomen voor: '
+                         f'{list(tmp_attr[tmp_attr[attr].isna()].index)}')
             tmp_attr[attr] = tmp_attr[attr].apply(lambda x: self.attr_dummy[attr] if pd.isnull(x) else x)
         else:
             tmp_attr = tmp_attr[tmp_attr[attr].notna()]
@@ -317,7 +439,6 @@ class HydamoObject:
     #     if prefix:
     #         fc_dataframe = fc_dataframe.add_prefix(prefix)
     #     return fc_dataframe
-
 
 
 if __name__ == '__main__':

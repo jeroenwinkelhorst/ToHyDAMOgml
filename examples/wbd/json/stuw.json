@@ -1,0 +1,141 @@
+{
+    "object": "stuw",
+    "source": {
+        "type": "FeatureServer",
+        "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
+        "layer": "8",
+        "filter": "",
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": false,
+        "func": ""
+    },
+    "related_data": {
+        "type": "csv",
+        "path": "c:\\Users\\908367\\Box\\BH8519 WBD DHYDRO\\BH8519 WBD DHYDRO WIP\\00_Exchange\\Waterschap Brabantse Delta\\20210831_streefpeilen\\Streefpeil  LMX400 LMX800 TMX locaties v2.csv",
+        "layer": "",
+        "mapping_col_src": "code",
+        "mapping_col_rel": "code",
+        "replace_index_col": "CODE"
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "naam",
+            "type": "String",
+            "required": false,
+            "src_col": "NAAM",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "3"
+        },
+        {
+            "name": "soortstuwcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "SOORTSTUW",
+            "func": "stuw_code",
+            "default": 99
+        },
+        {
+            "name": "soortregelbaarheidcode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "SOORTREGELBAARHEID",
+            "func": "stuw_regelbaarheid",
+            "default": 99
+        },
+        {
+            "name": "laagstedoorstroombreedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "DOORSTROOMBREEDTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogstedoorstroombreedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "DOORSTROOMBREEDTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "kruinbreedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "KRUINBREEDTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "laagstedoorstroomhoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "LAAGSTEDOORSTROOMHOOGTE",
+            "func": "replace_crestlevel",
+            "default": 999
+        },
+        {
+            "name": "hoogstedoorstroomhoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "HOOGSTEDOORSTROOMHOOGTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "afvoercoefficient",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 1.0
+        }
+    ]
+}

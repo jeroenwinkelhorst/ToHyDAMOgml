@@ -16,6 +16,7 @@ setup(
     version=tohydamogml.__version__,
     description=tohydamogml.__description__,
     long_description=long_description,
+    long_description_content_type='text/markdown',
 
     # The project's main homepage.
     url=tohydamogml.__url__,
@@ -29,26 +30,28 @@ setup(
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
-        'Topic :: RHDHV :: Water Management',
+        'Topic :: Scientific/Engineering :: Hydrology',
         'License :: Other/Proprietary License',
         'Programming Language :: Python :: 3',
     ],
 
     keywords=tohydamogml.__keywords__,
 
-    packages=find_packages(include=['tohydamogml']),
+    packages=find_packages(),
+    # package_dir={"": "tohydamogml"},
 
     # List run-time dependencies here.  These will be installed by pip when
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-    'fiona',
+    # 'fiona', # Temporarily turned off due to GDAL compication when pip installs dependancies
     'shapely',
     'pyproj',
     'rtree',
     'lxml',
-    'geopandas'
+    'geopandas',
+    'arcgis'
     ],
 
     # You can install these using the following syntax, for example:
@@ -60,10 +63,13 @@ setup(
     # If there are data files included in your packages that need to be
     # installed, specify them here.  If using Python 2.6 or less, then these
     # have to be included in MANIFEST.in as well.
-    # package_data={
-    #     'sobek2': ['sobek2/ls_language_dictionary.csv', ],
-    # },
-    # include_package_data=True,
+    package_data={
+        'tohydamogml': ['xsd/*.xsd'],
+        'src': ['xsd/*', 'xsd/*.xsd', '*.xsd'],
+        'examples': ['scripts/*'],
+        '': ['*.xsd']
+    },
+    include_package_data=True,
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages. See:

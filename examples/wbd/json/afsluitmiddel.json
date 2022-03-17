@@ -1,0 +1,130 @@
+{
+    "object": "afsluitmiddel",
+    "source": {
+        "type": "Shapefile",
+        "path": "c:\\Dev\\toHyDAMOgml\\examples\\wbd\\output\\afsluitmiddel\\afsluitmiddel_koppeling.gpkg",
+        "filter": "",
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": true,
+        "func": ""
+    },
+    "related_data": {
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "CODE"
+    },
+    "attributes": [
+        {
+            "name": "statusobjectcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "STATUSOBJECT",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "codegerelateerdobject",
+            "type": "String",
+            "required": true,
+            "src_col": "code_closest",
+            "func": "",
+            "default": 99
+        },
+        {
+            "name": "objectbegintijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTBEGINTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "objecteindtijd",
+            "type": "Date",
+            "required": false,
+            "src_col": "OBJECTEINDTIJD",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "hyperlink",
+            "type": "String",
+            "required": false,
+            "src_col": "HYPERLINK",
+            "func": "",
+            "default": ""
+        },
+        {
+            "name": "soortafsluitmiddelcode",
+            "type": "Integer",
+            "required": true,
+            "src_col": "SOORTAFSLUITMIDDEL",
+            "func": "afsluitmiddel_soort",
+            "default": 99
+        },
+        {
+            "name": "soortregelbaarheidcode",
+            "type": "Integer",
+            "required": false,
+            "src_col": "SOORTREGELBAARHEID",
+            "func": "afsluitmiddel_regelbaarheid",
+            "default": ""
+        },
+        {
+            "name": "breedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "BREEDTEOPENING",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "HOOGTEOPENING",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "minimalehoogtebovenkant",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "maximalehoogtebovenkant",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "afvoercoefficient",
+            "type": "Double",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": 1
+        },
+                {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "3"
+        }
+    ]
+}

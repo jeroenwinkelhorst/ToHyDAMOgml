@@ -1,0 +1,46 @@
+{
+    "object": "hydraulischerandvoorwaarde",
+    "source": {
+        "type": "Shapefile",
+        "path": "c:\\Users\\908367\\Box\\BH8519 WBD DHYDRO\\BH8519 WBD DHYDRO WIP\\00_Exchange\\Waterschap Brabantse Delta\\20210827_modelranden\\RandenModelgebied.shp",
+        "layer": "",
+        "filter": "",
+        "filter_type": "include",
+        "query": ""
+    },
+    "geometry": {
+        "drop": false,
+        "func": ""
+    },
+    "related_data": {
+        "type": "",
+        "path": "",
+        "layer": "",
+        "mapping_col_src": "",
+        "mapping_col_rel": "",
+        "replace_index_col": ""
+    },
+    "index": {
+        "name": "code",
+        "src_col": "index",
+        "func": "rand_index"
+    },
+    "attributes": [
+        {
+            "name": "debiet",
+            "type": "float",
+            "required": true,
+            "src_col": "m3_s",
+            "func": "",
+            "default": "0.1"
+        },
+        {
+            "name": "administratiefgebied",
+            "type": "String",
+            "required": true,
+            "src_col": "",
+            "func": "",
+            "default": "3"
+        }
+    ]
+}

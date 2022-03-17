@@ -1,0 +1,130 @@
+{
+  "object": "dwarsprofiel",
+  "source": {
+    "type": "Shapefile",
+    "path": "c:\\Dev\\toHyDAMOgml\\examples\\wbd\\output\\dwarsprofiel\\dwp_punten.gpkg",
+    "filter": "",
+    "filter_type": "include",
+    "query": ""
+  },
+  "geometry": {
+    "drop": false,
+    "func": ""
+
+  },
+  "related_data": {
+    "path": "",
+    "layer": "",
+    "mapping_col_src": "",
+    "mapping_col_rel": ""
+  },
+  "index": {
+    "name": "code",
+    "src_col": "ProfielCode"
+  },
+  "attributes": [
+    {
+      "name": "naam",
+      "type": "String",
+      "required": false,
+      "src_col": "",
+      "func": "",
+      "default": ""
+    },
+        { "name": "profielcode",
+      "type": "String",
+      "required": true,
+      "src_col": "Code",
+      "func": "",
+      "default": "dummy_code"
+    },
+    { "name": "typeprofielcode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "TypeProfielCode",
+      "func": "",
+      "default": "4"
+    },
+    {
+      "name": "statusobjectcode",
+      "type": "Integer",
+      "required": false,
+      "src_col": "STATUSOBJECT",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "objectbegintijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTBEGINTIJD",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "objecteindtijd",
+      "type": "Date",
+      "required": false,
+      "src_col": "OBJECTEINDTIJD",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "hyperlink",
+      "type": "String",
+      "required": false,
+      "src_col": "HYPERLINK",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "bodemhoogtebenedenstrooms",
+      "type": "Double",
+      "required": true,
+      "src_col": "WS_BH_BOVENSTROOMS_L",
+      "func": "",
+      "default": 997
+    },
+
+    {
+      "name": "ruwheidstypecode",
+      "type": "Integer",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 4
+    },
+    {
+      "name": "ruwheidswaardelaag",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 30
+    },
+    {
+      "name": "ruwheidswaardehoog",
+      "type": "Double",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": 20
+    },
+    {
+      "name": "codegerelateerdobject",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": ""
+    },
+    {
+      "name": "administratiefgebied",
+      "type": "String",
+      "required": true,
+      "src_col": "",
+      "func": "",
+      "default": "3"
+    }
+  ]
+}

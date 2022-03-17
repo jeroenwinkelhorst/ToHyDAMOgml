@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by ICT (Stichting Deltares) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:nhi="http://www.nhi.nu/gml" targetNamespace="http://www.nhi.nu/gml" elementFormDefault="qualified" version="1.0">
+	<import namespace="http://www.opengis.net/gml" schemaLocation="http://schemas.opengis.net/gml/2.1.2/feature.xsd"/>
+	<include schemaLocation="sharedTypes.xsd"/>
+	<element name="FeatureCollection" type="nhi:FeatureCollectionType" substitutionGroup="gml:_FeatureCollection"/>
+	<element name="aanvoergebied" type="nhi:NhiExtendedGebiedFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="administratiefgebied" type="nhi:NhiAdministratiefGebiedFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="afsluitmiddel" type="nhi:NhiAfsluitmiddelFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="afvoergebied" type="nhi:NhiExtendedGebiedFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="afwateringsgebied" type="nhi:NhiGebiedFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="aquaduct" type="nhi:NhiAquaductFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="bijzonderhydraulischeobject" type="nhi:NhiBijzondereHydraulischeObjectFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="bodemval" type="nhi:NhiBodemvalFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="brug" type="nhi:NhiBrugFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="doorstroomopening" type="nhi:NhiDoorstroomOpeningFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="duikersifonhevel" type="nhi:NhiDuikerHevelSifonFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="dwarsprofiel" type="nhi:NhiDwarsProfielFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="gemaal" type="nhi:NhiGemaalFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="grondwaterinfolijn" type="nhi:NhiGrondwaterInfoLijnFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="grondwaterinfopunt" type="nhi:NhiGrondwaterInfoPuntFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="grondwaterkoppellijn" type="nhi:NhiGrondwaterKoppelLijnFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="grondwaterkoppelpunt" type="nhi:NhiGrondwaterKoppelPuntFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="hydraulischerandvoorwaarde" type="nhi:NhiHydraulischeRandvoorwaardeFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="hydroobject" type="nhi:NhiHydroObjectFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="lateraleknoop" type="nhi:NhiLateraleKnoopFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="meetlocatie" type="nhi:NhiMeetlocatieFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="normgeparametriseerdprofiel" type="nhi:NhiNormaalGeparametiseerdProfielFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="pomp" type="nhi:NhiPompFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="sturing" type="nhi:NhiSturingFeatureType" substitutionGroup="gml:_Feature"/>
+	<element name="stuw" type="nhi:NhiStuwFeatureType" substitutionGroup="gml:_Feature"/>
+	<complexType name="NhiExtendedGebiedFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="oppervlakte" type="decimal"/>
+					<element name="lateraleknoopcode" type="string"/>
+					<choice>
+						<element ref="gml:polygonProperty"/>
+						<element ref="gml:multiPolygonProperty"/>
+					</choice>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiAdministratiefGebiedFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="gagident" type="string" minOccurs="0"/>
+					<choice>
+						<element ref="gml:polygonProperty"/>
+						<element ref="gml:multiPolygonProperty"/>
+					</choice>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGebiedFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<choice>
+						<element ref="gml:polygonProperty"/>
+						<element ref="gml:multiPolygonProperty"/>
+					</choice>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiAfsluitmiddelFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="soortafsluitmiddelcode" type="nhi:soortAfsluitmiddelCodeSimpleType"/>
+					<element name="soortregelbaarheidcode" type="nhi:soortRegelbaarheidCodeSimpleType" minOccurs="0"/>
+					<element name="breedte" type="decimal"/>
+					<element name="hoogte" type="decimal"/>
+					<element name="minimalehoogtebovenkant" type="decimal"/>
+					<element name="maximalehoogtebovenkant" type="decimal"/>
+					<element name="afvoercoefficient" type="decimal"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiAquaductFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="bodemhoogtebenedenstrooms" type="decimal"/>
+					<element name="bodemhoogtebovenstrooms" type="decimal"/>
+					<element name="hoogteconstructie" type="decimal"/>
+					<group ref="nhi:ruwheid"/>
+					<element name="breedte" type="decimal"/>
+					<element ref="gml:lineStringProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiBijzondereHydraulischeObjectFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="typehydraulischobjectcode" type="nhi:typeHydraulischObjectCodeSimpleType"/>
+					<element name="extrainfo" type="string" minOccurs="0"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiBodemvalFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="dwarsprofielbovenstroomscode" type="string">
+						<annotation>
+							<documentation>Verwijzing naar code van bovenstroomse profiel in object DwarsProfiel of NormGeparametriseerdProfiel.</documentation>
+						</annotation>
+					</element>
+					<element name="dwarsprofielbenedenstroomscode" type="string">
+						<annotation>
+							<documentation>Verwijzing naar code van benedenstroomse profiel in object DwarsProfiel of NormGeparametriseerdProfiel.</documentation>
+						</annotation>
+					</element>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiBrugFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="hoogteonderzijde" type="decimal"/>
+					<element name="hoogtebovenzijde" type="decimal" minOccurs="0"/>
+					<element name="dwarsprofielcode" type="string">
+						<annotation>
+							<documentation>Verwijzing naar code van profiel in object DwarsProfiel of NormGeparametriseerdProfiel.</documentation>
+						</annotation>
+					</element>
+					<element name="lengte" type="decimal"/>
+					<group ref="nhi:ruwheid"/>
+					<element name="intreeverlies" type="decimal"/>
+					<element name="uittreeverlies" type="decimal"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiDoorstroomOpeningFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="laagstedoorstroomhoogte" type="decimal"/>
+					<element name="breedte" type="decimal"/>
+					<element name="hoogte" type="decimal"/>
+					<element name="vormcode" type="nhi:vormCodeSimpleType"/>
+					<element name="afvoercoefficient" type="decimal"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiDuikerHevelSifonFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="indpeilregulpeilscheidend" type="nhi:jaNeeSimpleType" minOccurs="0"/>
+					<element name="lengte" type="decimal"/>
+					<element name="hoogteopening" type="decimal"/>
+					<element name="breedteopening" type="decimal"/>
+					<element name="hoogtebinnenonderkantbenedenstrooms" type="decimal"/>
+					<element name="hoogtebinnenonderkantbovenstrooms" type="decimal"/>
+					<element name="vormkokercode" type="nhi:vormCodeSimpleType"/>
+					<element name="soortkokervormigeconstructiecode" type="nhi:soortKokerVormigeConstructieCodeSimpleType"/>
+					<group ref="nhi:ruwheid"/>
+					<element name="intreeverlies" type="decimal"/>
+					<element name="uittreeverlies" type="decimal"/>
+					<element name="aantalknikken" type="integer" minOccurs="0"/>
+					<element ref="gml:lineStringProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiDwarsProfielFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="codevolgnummer" type="integer"/>
+					<element name="profielcode" type="string"/>
+					<element name="typeprofielcode" type="nhi:typeProfielCodeSimpleType"/>
+					<group ref="nhi:ruwheidsbereik"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGemaalFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGrondwaterInfoLijnFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="geldigbegintijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="geldigeindtijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="natteomtrek" type="decimal"/>
+					<element name="bodembreedte" type="decimal"/>
+					<element name="flux" type="decimal" minOccurs="0"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGrondwaterInfoPuntFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="geldigbegintijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="geldigeindtijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="waterstand" type="decimal"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGrondwaterKoppelLijnFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element ref="gml:lineStringProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiGrondwaterKoppelPuntFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiHydraulischeRandvoorwaardeFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="typerandvoorwaardecode" type="nhi:typeRandvoorwaardeCodeSimpleType"/>
+					<element name="waterstand" type="decimal" minOccurs="0"/>
+					<element name="debiet" type="decimal" minOccurs="0"/>
+					<element name="qh-relatie" type="decimal" minOccurs="0"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiHydroObjectFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<group ref="nhi:ruwheidsbereik"/>
+					<element ref="gml:lineStringProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiLateraleKnoopFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiMeetlocatieFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<group ref="nhi:generalExtended"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="datumstatusobject" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="datumrealisatieobject" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="metingwaterstand" type="nhi:jaNeeSimpleType"/>
+					<element name="metingklepofschuifstand" type="nhi:jaNeeSimpleType"/>
+					<element name="metingafvoer" type="nhi:jaNeeSimpleType"/>
+					<element name="metingstroomsnelheid" type="nhi:jaNeeSimpleType"/>
+					<element name="metingwaterkwaliteit" type="nhi:jaNeeSimpleType"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiNormaalGeparametiseerdProfielFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<!--- Algemeen -->
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="bodemhoogtebenedenstrooms" type="decimal"/>
+					<element name="bodemhoogtebovenstrooms" type="decimal"/>
+					<element name="bodembreedte" type="decimal"/>
+					<element name="taludhellinglinkerzijde" type="decimal"/>
+					<element name="taludhellingrechterzijde" type="decimal"/>
+					<element name="hoogteplasbermlinkerzijde" type="decimal" minOccurs="0"/>
+					<element name="hoogteplasbermrechterzijde" type="decimal" minOccurs="0"/>
+					<element name="breedteplasbermlinkerzijde" type="decimal" minOccurs="0"/>
+					<element name="breedteplasbermrechterzijde" type="decimal" minOccurs="0"/>
+					<element name="taludhellingplasbermlinkerzijde" type="decimal" minOccurs="0"/>
+					<element name="taludhellingplasbermrechterzijde" type="decimal" minOccurs="0"/>
+					<element name="hoogteinsteeklinkerzijde" type="decimal"/>
+					<element name="hoogteinsteekrechterzijde" type="decimal"/>
+					<group ref="nhi:ruwheidsbereik"/>
+					<element ref="gml:lineStringProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiPompFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<!--- Algemeen -->
+					<group ref="nhi:general"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="codegerelateerdobject" type="string" minOccurs="0"/>
+					<element name="maximalecapaciteit" type="decimal"/>
+					<element name="pompcurve" type="string" minOccurs="0"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiSturingFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<!--- Algemeen -->
+					<group ref="nhi:generalExtended"/>
+					<element name="codegerelateerdobject" type="string"/>
+					<element name="complexesturingcode" type="nhi:jaNeeSimpleType"/>
+					<element name="geldigbegintijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="geldigeindtijd" type="nhi:dateTimeSimpleType" minOccurs="0"/>
+					<element name="stuurvariabelecode" type="nhi:stuurvariabeleCodeSimpleType"/>
+					<element name="doelvariabelecode" type="nhi:doelvariabeleCodeSimpleType"/>
+					<element name="streefwaarde" type="decimal"/>
+					<element name="bovenmarge" type="decimal"/>
+					<element name="ondermarge" type="decimal"/>
+					<element name="sturingtypecode" type="nhi:sturingTypeCodeSimpleType"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+	<complexType name="NhiStuwFeatureType">
+		<complexContent>
+			<extension base="gml:AbstractFeatureType">
+				<sequence>
+					<!--- Algemeen -->
+					<group ref="nhi:generalExtended"/>
+					<element name="administratiefgebied" type="nhi:administratiefgebiedSimpleType"/>
+					<element name="soortstuwcode" type="nhi:soortStuwCodeSimpleType" minOccurs="0"/>
+					<element name="soortregelbaarheidcode" type="nhi:soortRegelbaarheidCodeSimpleType"/>
+					<element name="laagstedoorstroombreedte" type="decimal"/>
+					<element name="hoogstedoorstroombreedte" type="decimal"/>
+					<element name="kruinbreedte" type="decimal"/>
+					<element name="laagstedoorstroomhoogte" type="decimal"/>
+					<element name="hoogstedoorstroomhoogte" type="decimal"/>
+					<element name="dwarsprofielcode" type="string" minOccurs="0">
+						<annotation>
+							<documentation>Verwijzing naar code van profiel in object dwarsProfiel. Voor stuwen met een complexe vorm.</documentation>
+						</annotation>
+					</element>
+					<element name="afvoercoefficient" type="decimal"/>
+					<element ref="gml:pointProperty"/>
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>
