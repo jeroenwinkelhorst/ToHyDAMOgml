@@ -27,14 +27,6 @@
     },
     "attributes": [
         {
-            "name": "typerandvoorwaardecode",
-            "type": "Integer",
-            "required": true,
-            "src_col": "",
-            "func": "",
-            "default": "1"
-        },
-        {
             "name": "debiet",
             "type": "float",
             "required": true,

@@ -17,7 +17,7 @@ import pandas as pd
 import geopandas as gpd
 import pyproj
 from lxml import etree
-from fiona.crs import from_epsg
+import pkg_resources
 
 from tohydamogml.config import XSI_NAMESPACE, NHI_NAMESPACE, GML_NAMESPACE, XSD, XSD_PATH, DEFAULT_CRS
 
@@ -46,8 +46,8 @@ class Gml:
         elif type(self.gdf.crs) == dict:
             if 'init' in self.gdf.crs.keys():
                 self.crs = self.gdf.crs['init']
-        # elif type(self.gdf.crs) == pyproj.crs.CRS:
-        #     self.crs = self.gdf.crs.srs
+        elif type(self.gdf.crs) == pyproj.crs.CRS:
+            self.crs = self.gdf.crs.srs
         else:
             self.crs = self.gdf.crs
         self._xsd_schema = None
@@ -76,7 +76,7 @@ class Gml:
             featureMember = etree.SubElement(self.FeatureCollection, self.GML + "featureMember")
             obj = etree.SubElement(featureMember, self.NHI + self.objectname)
             for key in row.index:
-                if key is not 'geometry':
+                if key != 'geometry':
                     if not pd.isnull(row[key]):
                         var = etree.SubElement(obj, self.NHI + str(key))
                         if type(row[key]) is pd.Timestamp:
@@ -148,8 +148,8 @@ class Gml:
     def xsd_schema(self):
         """Read XSD schema"""
         if self._xsd_schema is None:
-            xsd_tree = etree.parse(
-                os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", XSD_PATH)))
+            xsd_tree = etree.parse(pkg_resources.resource_stream(__name__, f'../{XSD_PATH}'))
+                # os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../src", XSD_PATH)))
             self._xsd_schema = etree.XMLSchema(xsd_tree)
         return self._xsd_schema
 

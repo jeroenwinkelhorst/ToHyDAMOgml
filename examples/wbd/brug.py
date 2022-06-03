@@ -43,7 +43,7 @@ def make_bridge_profile(brug, legger):
                     bottom_level=bottom, bottom_width=brug['WS_DOORSTR'],
                     talud_l=0.01, talud_r=0.01, total_depth = height)
     logging.info(f'Made XYZ: {xyz.wkt}')
-    new_points = gpd.GeoDataFrame(crs='EPSG:28992')
+    new_points = gpd.GeoDataFrame()
     for i in range(len(list(xyz.coords))):
         new = gpd.GeoDataFrame(geometry=[Point(list(xyz.coords)[i])],
                                data={'code': [f"{brug['CODE']}_{i + 1}"],
@@ -52,7 +52,8 @@ def make_bridge_profile(brug, legger):
                                      'TypeProfielCode': [3],
                                      'RuwheidsTypeCode': [4],
                                      'RuwheidsWaardeLaag': [75],
-                                     'RuwheidsWaardeHoog': [75]})
+                                     'RuwheidsWaardeHoog': [75]},
+                               crs='EPSG:28992')
         new_points = new_points.append(new)
     logging.info('Made Bridge DWP')
     brug_hydamo = gpd.GeoDataFrame(geometry=[brug.geometry],
@@ -63,7 +64,8 @@ def make_bridge_profile(brug, legger):
                                          'ruwheidstypecode': [4],
                                          'RuwheidsWaarde': [75],
                                          'intreeverlies': [0],
-                                         'uittreeverlies': [0]})
+                                         'uittreeverlies': [0]},
+                                   crs='EPSG:28992')
     logging.info('Made Bridge Hydamo')
     return new_points, brug_hydamo
 
@@ -71,11 +73,9 @@ def make_bridge_profile(brug, legger):
 if __name__ == '__main__':
     gdf_legger = read_featureserver(
         r'https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Legger_Vigerend/FeatureServer', 18)
-    gdf_brug = gpd.read_file(r'c:\Users\908367\Box\BH8519 WBD DHYDRO\BH8519 WBD DHYDRO WIP\00_Exchange\Waterschap Brabantse Delta\20210611_aanvullendegegevens\Leveren_aan_RHDHV\dwarsprofielen\Brugprofielen.shp')
-    mask = gpd.read_file(r"c:\local\TKI_WBD\aanvullende_data\Aa_of_Weerijs_v2.shp")
+    gdf_brug = gpd.read_file(r'..\input\Brugprofielen.shp')
+    mask = gpd.read_file(r"..\input\modelgebied_edit.shp")
     bruggen = gdf_brug[gdf_brug.intersects(mask.unary_union)]
-
-    # problem = make_bridge_profile(bruggen.iloc[5], gdf_legger)
 
     profiles = gpd.GeoDataFrame(crs='EPSG:28992')
     bridges = gpd.GeoDataFrame(crs='EPSG:28992')
@@ -91,7 +91,6 @@ if __name__ == '__main__':
         else:
             logging.warning(f'Bridge manually skipped. Code: {brug["CODE"]}')
 
-    profiles.to_file(r'output/brug/dwp_bruggen.gpkg', driver='GPKG')
-    bridges.to_file(r'output/brug/bruggen.gpkg', driver='GPKG')
-    print(profiles)
+    profiles.to_file(os.path.join(folder, 'dwp_bruggen.gpkg'), driver='GPKG')
+    bridges.to_file(os.path.join(folder, 'bruggen.gpkg'), driver='GPKG')
 

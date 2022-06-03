@@ -1,9 +1,9 @@
 {
-    "object": "duikersifonhevel",
+    "object": "stuw",
     "source": {
         "type": "FeatureServer",
         "path": "https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Kunstwerken/FeatureServer",
-        "layer": "12",
+        "layer": "3",
         "filter": "",
         "filter_type": "include",
         "query": ""
@@ -35,7 +35,7 @@
             "name": "statusobjectcode",
             "type": "Integer",
             "required": false,
-            "src_col": "STATUSOBJECT",
+            "src_col": "",
             "func": "",
             "default": ""
         },
@@ -72,63 +72,15 @@
             "default": "3"
         },
         {
-            "name": "indpeilregulpeilscheidendcode",
-            "type": "String",
+            "name": "soortstuwcode",
+            "type": "Integer",
             "required": false,
-            "src_col": "INDPEILREGULPEILSCHEIDEND",
+            "src_col": "SOORTSTUW",
             "func": "",
-            "default": ""
+            "default": 99
         },
         {
-            "name": "lengte",
-            "type": "Double",
-            "required": true,
-            "src_col": "LENGTE",
-            "func": "",
-            "default": 10
-        },
-        {
-            "name": "hoogteopening",
-            "type": "Double",
-            "required": true,
-            "src_col": "HOOGTEOPENING",
-            "func": "",
-            "default": 0.8
-        },
-        {
-            "name": "breedteopening",
-            "type": "Double",
-            "required": true,
-            "src_col": "BREEDTEOPENING",
-            "func": "",
-            "default": 0.8
-        },
-        {
-            "name": "hoogtebinnenonderkantbenedenstrooms",
-            "type": "Double",
-            "required": true,
-            "src_col": "HOOGTEBINNENONDERKANTBENE",
-            "func": "",
-            "default": 999
-        },
-        {
-            "name": "hoogtebinnenonderkantbovenstrooms",
-            "type": "Double",
-            "required": true,
-            "src_col": "HOOGTEBINNENONDERKANTBOV",
-            "func": "",
-            "default": 999
-        },
-        {
-            "name": "vormkokercode",
-            "type": "Integer",
-            "required": true,
-            "src_col": "VORMKOKER",
-            "func": "duikersifonhevel_vorm",
-            "default": 1
-        },
-        {
-            "name": "soortkokervormigeconstructiecode",
+            "name": "soortregelbaarheidcode",
             "type": "Integer",
             "required": true,
             "src_col": "",
@@ -136,44 +88,52 @@
             "default": 1
         },
         {
-            "name": "ruwheidstypecode",
-            "type": "Integer",
-            "required": true,
-            "src_col": "",
-            "func": "",
-            "default": 4
-        },
-        {
-            "name": "ruwheidswaarde",
+            "name": "laagstedoorstroombreedte",
             "type": "Double",
             "required": true,
-            "src_col": "",
-            "func": "obj_soortmateriaal",
-            "default": 75
-        },
-        {
-            "name": "intreeverlies",
-            "type": "Double",
-            "required": true,
-            "src_col": "",
+            "src_col": "BREEDTE",
             "func": "",
             "default": 999
         },
         {
-            "name": "uittreeverlies",
+            "name": "hoogstedoorstroombreedte",
             "type": "Double",
             "required": true,
-            "src_col": "",
+            "src_col": "BREEDTE",
             "func": "",
             "default": 999
         },
         {
-            "name": "aantalknikken",
-            "type": "Integer",
+            "name": "kruinbreedte",
+            "type": "Double",
+            "required": true,
+            "src_col": "BREEDTE",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "laagstedoorstroomhoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "BODEMHOOGTEBOVENSTROOMS ",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "hoogstedoorstroomhoogte",
+            "type": "Double",
+            "required": true,
+            "src_col": "BODEMHOOGTEBOVENSTROOMS ",
+            "func": "",
+            "default": 999
+        },
+        {
+            "name": "afvoercoefficient",
+            "type": "Double",
             "required": true,
             "src_col": "",
             "func": "",
-            "default": 999
+            "default": 1.0
         }
     ]
 }

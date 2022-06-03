@@ -5,9 +5,10 @@ import logging
 import geopandas as gpd
 from tohydamogml.read_database import read_featureserver
 import tqdm
+from pathlib import Path
 
 def make_profile(gdf):
-    new_points = gpd.GeoDataFrame(crs = 'EPSG:28992')
+    new_points = gpd.GeoDataFrame()
     for i, row in tqdm.tqdm(gdf.iterrows(), total=len(gdf)):
         length = row.geometry.length
         if length > 20:
@@ -28,7 +29,8 @@ def make_profile(gdf):
                                          'TypeProfielCode': [4],
                                          'RuwheidsTypeCode': [4],
                                          'RuwheidsWaardeLaag': [30],
-                                         'RuwheidsWaardeHoog': [20]})
+                                         'RuwheidsWaardeHoog': [20]},
+                                   crs = 'EPSG:28992')
             new_points = new_points.append(new)
         down_line = _make_xyz(row=row, distance_main=down_dist_main, distance_help=down_dist_help,
                               bottom_level=row['WS_BH_BENEDENSTROOMS_L'], bottom_width=row['WS_BODEMBREEDTE_L'],
@@ -42,8 +44,10 @@ def make_profile(gdf):
                                          'TypeProfielCode': [4],
                                          'RuwheidsTypeCode': [4],
                                          'RuwheidsWaardeLaag': [30],
-                                         'RuwheidsWaardeHoog': [20]})
+                                         'RuwheidsWaardeHoog': [20]},
+                                   crs = 'EPSG:28992')
             new_points = new_points.append(new)
+    new_points.crs = 'EPSG:28992'
     return new_points
 
 def _make_xyz(row, distance_main, distance_help, bottom_level, bottom_width, talud_l, talud_r, total_depth = 10):
@@ -82,14 +86,18 @@ def _make_xyz(row, distance_main, distance_help, bottom_level, bottom_width, tal
     return profile_line
 
 if __name__ == '__main__':
-    mask = gpd.read_file(r"c:\local\TKI_WBD\aanvullende_data\Aa_of_Weerijs_v2.shp")
+    mask = gpd.read_file(r"..\input\modelgebied_edit.shp")
     print(r'reading feature server...')
     gdf = read_featureserver(r"https://maps.brabantsedelta.nl/arcgis/rest/services/Extern/Legger_Vigerend/FeatureServer",
                              layer_index="18")
-    gdf = gdf[gdf.drop(columns='SHAPE').intersects(mask.unary_union)]
+    gdf = gdf[gdf.intersects(mask.unary_union)]
 
     print(r'feature server read!')
-    # gdf = gpd.clip(gdf, mask)
+    gdf = gpd.clip(gdf, mask)
     new_points = make_profile(gdf)
-    new_points.to_file(r'output/dwarsprofiel/dwp_punten_2.gpkg', driver='GPKG')
-    new_points.to_file(r'output/dwarsprofiel/dwp_punten_2.shp')
+
+    output_folder = Path(r'output/dwarsprofiel')
+    output_folder.mkdir(parents=True, exist_ok=True)
+
+    new_points.to_file(output_folder/'dwp_punten.gpkg', driver='GPKG')
+    new_points.to_file(output_folder/'dwp_punten.shp')

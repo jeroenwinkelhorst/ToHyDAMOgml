@@ -31,14 +31,6 @@
       "func": "",
       "default": ""
     },
-    {
-      "name": "codevolgnummer",
-      "type": "Integer",
-      "required": true,
-      "src_col": "codeVolgnummer",
-      "func": "",
-      "default": 99
-    },
         { "name": "profielcode",
       "type": "String",
       "required": true,
