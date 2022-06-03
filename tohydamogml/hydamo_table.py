@@ -18,7 +18,7 @@ from shapely import ops
 from tohydamogml.gml import Gml
 from tohydamogml.read_database import read_filegdb, read_featureserver
 import logging
-
+from datetime import datetime
 
 class HydamoObject:
     """
@@ -51,6 +51,7 @@ class HydamoObject:
         self.attr_required = {}
         self.attr_damo = {}
         self.attr_dummy = {}
+        self.fill_na = {}
         self._gml = None
         self.mask = None
         self._outputfolder = outputfolder
@@ -133,6 +134,15 @@ class HydamoObject:
             func = eval("self.ws." + self.obj["index"]["func"])
             ind = pd.Index(data=func(damo_gdf=gdf_src, obj=self.obj), name='code')
             self.gdf.index = ind
+
+        # Write filled na values to gpkg
+        if len(self.fill_na) > 0:
+            for key, value in self.fill_na.items():
+                if "geometry" in self.gdf.columns:
+                    self.gdf.loc[value, [key, "geometry"]].to_file(os.path.join(self.output_folder,f"fill_na_{key}.gpkg"), driver="GPKG")
+                else:
+                    self.gdf.loc[value, key].to_csv(os.path.join(self.output_folder, f"fill_na_{key}.csv"))
+
 
         if self.obj["geometry"]["drop"] is True:
             self.gdf = self.gdf.drop(['geometry'], axis=1)
@@ -408,8 +418,11 @@ class HydamoObject:
     def _fill_na_if_required(self, attr, tmp_attr):
         """Fill NA values if attribute is required"""
         if self.attr_required[attr]:
+            empty_attr = tmp_attr[tmp_attr[attr].isna()]
             logging.info(f'Default waarde van {attr} ({self.attr_dummy[attr]}) aangenomen voor: '
-                         f'{list(tmp_attr[tmp_attr[attr].isna()].index)}')
+                         f'{list(empty_attr.index)}')
+            if len(empty_attr)>0:
+                self.fill_na[attr] = list(empty_attr.index)
             tmp_attr[attr] = tmp_attr[attr].apply(lambda x: self.attr_dummy[attr] if pd.isnull(x) else x)
         else:
             tmp_attr = tmp_attr[tmp_attr[attr].notna()]
@@ -424,6 +437,15 @@ class HydamoObject:
             return to_int.astype('object')
         else:
             return tmp_attr.astype(self.attr_dtype[attr])
+
+    @property
+    def output_folder(self):
+        """Make dir is not exist"""
+        if self._outputfolder is None:
+            folder = os.path.join('log', datetime.today().strftime("%Y%m%d_%H%M"))
+            os.makedirs(folder)
+            self._outputfolder = folder
+        return self._outputfolder
 
     # def _table_to_data_frame(self, in_table, input_fields=None, where_clause=None, prefix="rel_"):
     #     """Function will convert an arcgis table into a pandas dataframe with an object ID index, and the selected
