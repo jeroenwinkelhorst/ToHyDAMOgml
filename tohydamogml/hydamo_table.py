@@ -139,7 +139,7 @@ class HydamoObject:
         if len(self.fill_na) > 0:
             for key, value in self.fill_na.items():
                 if "geometry" in self.gdf.columns:
-                    self.gdf.loc[value, [key, "geometry"]].to_file(os.path.join(self.output_folder,f"fill_na_{key}.gpkg"), driver="GPKG")
+                    self.gdf.loc[value, [key, "geometry"]].to_file(os.path.join(self.output_folder,f"fill-na_{self.objectname}_{key}.gpkg"), driver="GPKG")
                 else:
                     self.gdf.loc[value, key].to_csv(os.path.join(self.output_folder, f"fill_na_{key}.csv"))
 
